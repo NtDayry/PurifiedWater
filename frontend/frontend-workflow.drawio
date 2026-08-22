@@ -1,0 +1,310 @@
+<mxfile host="65bd71144e">
+    <diagram id="page-1" name="1. Frontend Overview">
+        <mxGraphModel dx="2795" dy="1590" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="113" value="Frontend / Boot / Routing / Auth / Permission Workflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;fontColor=#e2e8f0;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="110" width="620" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="114" value="main.tsx\nProviders + global wrappers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="260" y="240" width="250" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="115" value="App.tsx\nSilent refresh + routing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="550" y="240" width="250" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="api/http.ts\nAxios interceptor + 401 retry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="840" y="240" width="250" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="117" value="Permission + Sidebar\nRoute guard + menu visibility" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7c2d12;strokeColor=#fbbf24;fontColor=#fffbeb;" vertex="1" parent="1">
+                    <mxGeometry x="1130" y="240" width="290" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="118" value="sign-in / logout flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="400" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" value="protected app layout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="400" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="route guard checks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="940" y="400" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="121" value="sidebar hides/shows items" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1250" y="400" width="290" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" value="user enters app" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#020617;strokeColor=#38bdf8;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="740" y="550" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="123" value="dashboard / inspection / settings / users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b1120;strokeColor=#475569;fontColor=#cbd5e1;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="660" width="320" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="124" value="auth pages\n/login + /register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b1120;strokeColor=#475569;fontColor=#cbd5e1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="660" width="260" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="page-2" name="2. Boot + Silent Refresh + Routing">
+        <mxGraphModel dx="2484" dy="1413" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-116" value="App boot" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#020617;strokeColor=#38bdf8;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="30" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-117" value="main.tsx wraps providers\nTheme / Loading / Modal / FullScreen / AppWrapper" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="120" width="460" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-118" value="App.tsx useEffect()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="230" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-119" value="ocr-auth exists in localStorage?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="330" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-120" value="No auth data\n→ skip silent refresh" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b1120;strokeColor=#475569;fontColor=#cbd5e1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="470" width="250" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-121" value="parse JSON success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="470" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-122" value="parse error\nconsole.error + stop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="1120" y="470" width="260" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-123" value="authData.state.id exists?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="600" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-124" value="missing id\n→ skip silent refresh" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b1120;strokeColor=#475569;fontColor=#cbd5e1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="610" width="260" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-125" value="POST /auth/refresh\nwith _skipAuthRedirect=true" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="690" y="730" width="360" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-126" value="refresh success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="850" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-127" value="setAuth(id, fullname, profile_image, username, role, permissions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="980" width="390" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-128" value="logout()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="1100" y="980" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-129" value="GET /auth/permissions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="690" y="1100" width="360" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-130" value="permission registry loaded?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="1210" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-131" value="setServerPermissions(keys)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="1340" width="320" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-132" value="warn + setServerPermissions([])" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="1020" y="1340" width="360" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="k5AgNI_YGmwJ1SaOv_et-133" value="Router ready\nRoutes: protected layout / auth pages / fallback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="1460" width="430" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="page-3" name="3. Login + Logout + Axios 401 Retry">
+        <mxGraphModel dx="7453" dy="4240" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="LS47KMoky_WibNceKLZA-137" value="Login submit" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#020617;strokeColor=#38bdf8;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="820" y="30" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-138" value="SignInForm handleSubmit()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="120" width="380" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-139" value="username/password empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="230" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-140" value="set formError\nstop submit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="240" width="220" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-141" value="setLoading(true)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="360" width="300" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-142" value="LoginApi(form)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="780" y="460" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-143" value="login success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="565" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-144" value="setAuth(id, fullname, profile_image, username, role, permissions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="690" width="460" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-145" value="navigate /" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="800" width="260" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-146" value="Axios error?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="900" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-147" value="status 403" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="1060" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-148" value="show password hint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="1160" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-149" value="status 401 or 429" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="1060" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-150" value="show username hint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="1160" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-151" value="other error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="820" y="1060" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-152" value="SweetAlert error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="800" y="1160" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-153" value="finally: setLoading(false)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="1270" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-154" value="Logout route /logout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="1280" y="200" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-155" value="useEffect()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="1300" y="300" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-156" value="logoutApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="1300" y="390" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-157" value="API success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1290" y="480" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-158" value="logout store" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="610" width="180" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-159" value="navigate /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="1440" y="610" width="200" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-160" value="Axios response error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1280" y="760" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-161" value="status = 401 and not /auth/login?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="860" width="340" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-162" value="_skipAuthRedirect?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1000" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-163" value="silent logout\nreturn reject" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="1005" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-164" value="URL is /auth/refresh?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1120" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-165" value="logout + redirect /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="1125" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-166" value="_retry already used?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1240" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-167" value="retry with direct axios.post /auth/refresh" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="1230" y="1370" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-168" value="refresh success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1490" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-169" value="setAuth(...) then api.request(original config)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="1180" y="1620" width="360" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="LS47KMoky_WibNceKLZA-170" value="refresh failed / already retried\nlogout + redirect /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="1620" width="300" height="85" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="page-4" name="4. Permission Guard + Sidebar Visibility">
+        <mxGraphModel dx="7453" dy="4240" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-135" value="Permission flow" style="shape=ellipse;whiteSpace=wrap;html=1;fillColor=#020617;strokeColor=#38bdf8;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="800" y="30" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-136" value="useHasPermission(permissionKeys)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="120" width="360" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-137" value="permissionKeys empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="225" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-138" value="allow = true" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="250" width="180" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-139" value="permissions includes &#39;*&#39;?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="345" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-140" value="role = admin and permissions empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="470" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-141" value="filter keys by server registry\nunknown keys dropped" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="700" y="600" width="420" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-142" value="validPermissionKeys empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="720" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-143" value="deny = false" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="745" width="180" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-144" value="some user permission matches valid keys?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="850" width="360" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-145" value="PermissionGuard passes\nrender children" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="700" y="990" width="260" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-146" value="Navigate /" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="990" y="990" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-147" value="Sidebar render" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="1280" y="120" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-148" value="item has permission?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1260" y="220" width="260" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-149" value="show item" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="250" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-150" value="hasPermission(item.permission)?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="345" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-151" value="hide item" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="365" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-152" value="has subItems?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="470" width="220" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-153" value="filter visibleSubItems" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4c1d95;strokeColor=#a78bfa;fontColor=#ede9fe;" vertex="1" parent="1">
+                    <mxGeometry x="1230" y="595" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-154" value="visibleSubItems empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="700" width="250" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-155" value="parent has path?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="820" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-156" value="render Link" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="950" width="200" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-157" value="submenu?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1050" width="190" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-158" value="click same submenu again?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1170" width="260" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-159" value="close submenu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f1d1d;strokeColor=#fb7185;fontColor=#fecaca;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="1185" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-160" value="open submenu + measure height" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064e3b;strokeColor=#34d399;fontColor=#d1fae5;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1290" width="300" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-161" value="mobile open?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#94a3b8;fontColor=#e5e7eb;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="1400" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="GiJ_zTPaILvRaZ-RRfub-162" value="toggleMobileSidebar()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#083344;strokeColor=#22d3ee;fontColor=#e0f2fe;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="1410" width="220" height="65" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

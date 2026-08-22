@@ -1,0 +1,5 @@
+"role_id","role_name","description","is_full_access"
+1,"admin","สิทธิ์แก้ไขข้อมูล",False
+2,"operator","ผู้ปฏิบัติงาน",False
+3,"viewer","ดูข้อมูลอย่างเดียว",False
+4,"super admin","สิทธิ์เต็ม",True

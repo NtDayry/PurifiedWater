@@ -1,0 +1,32 @@
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+.git/
+.gitignore
+
+.env
+.env.development
+.env.production
+.env.example
+
+.venv/
+venv/
+
+tests/
+backup/
+frontend/
+nv_cache/
+
+# runtime data
+app/
+storage/
+data/
+logs/
+uploads/
+
+# optional
+*.db
+.DS_Store
+Thumbs.db

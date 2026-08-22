@@ -1,0 +1,545 @@
+{
+  "header": {
+    "dropdown": {
+      "role_title": "Role",
+      "user_account": "User Account",
+      "settings": "Settings",
+      "support": "Support",
+      "logout": "Logout"
+    }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "reports": "Reports",
+    "alarm_reports": "Alarm Reports",
+    "settings_devices": "Settings Devices",
+    "audit_logs": "Audit Logs",
+    "user_managment": "User Management",
+    "system_monitor": "System Monitor",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Enter your username and password to log in!",
+      "field": {
+        "username": "Username",
+        "place_username": "Enter username...",
+        "password": "Password",
+        "place_password": "Enter password..."
+      },
+      "keep_logged_in": "Keep me logged in",
+      "forgot_password": "Forgot Password?",
+      "no_account": "Don't have an account?",
+      "register": "Sign Up",
+      "button": {
+        "submit": "Log In",
+        "wait": "Logging in..."
+      }
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Enter your username, password, and other information to sign up!",
+      "field": {
+        "fname": "First Name",
+        "place_fname": "Enter first name...",
+        "lname": "Last Name",
+        "place_lname": "Enter last name...",
+        "department": "Department",
+        "place_department": "Enter department...",
+        "username": "Username",
+        "place_username": "Enter username...",
+        "password": "Password",
+        "place_password": "Enter password...",
+        "confirm_password": "Confirm Password",
+        "place_confirm_password": "Confirm password..."
+      },
+      "privacy_notice": {
+        "prefix": "By creating an account, you agree to our",
+        "terms": "Terms & Conditions",
+        "and": "and",
+        "privacy": "Privacy Policy",
+        "suffix": ""
+      },
+      "has_account": "Already have an account?",
+      "login": "Log In",
+      "button": {
+        "submit": "Register",
+        "wait": "Registering..."
+      },
+      "error_alert": "An error occurred during registration",
+      "error_username_exists": "This username already exists",
+      "success_alert": "Registration successful! You can now log in"
+    }
+  },
+  "page": {
+    "audit_logs": {
+      "title": "Audit logs",
+      "subtitle": "Review user actions and the request metadata recorded by the server.",
+      "filter": {
+        "from": "From",
+        "to": "To",
+        "action": "Action",
+        "entity": "Entity",
+        "all_actions": "All Actions",
+        "all_entities": "All Entities"
+      },
+      "kpi": {
+        "total_records": "Total Records",
+        "creates": "Creates (Page)",
+        "updates": "Updates (Page)",
+        "deletes": "Deletes (Page)",
+        "auth": "Auth (Page)"
+      },
+      "table": {
+        "header": {
+          "created_at": "Time",
+          "username": "User",
+          "action": "Action",
+          "entity": "Entity",
+          "entity_id": "Entity ID",
+          "ip_address": "IP",
+          "user_agent": "User-Agent"
+        },
+        "detail": "Showing [ci] of [ti] items",
+        "search": "Search...",
+        "view_details": "View details",
+        "row_per_page": {
+          "display": "Rows per page:",
+          "row": "Showing [cr] of [tr] entries"
+        },
+        "empty": {
+          "title": "Audit logs not found",
+          "subtitle": "Try modifying your search conditions or try again later."
+        }
+      },
+      "modal": {
+        "title": "View Old Data / New Data",
+        "user": "User",
+        "date": "Date",
+        "ip": "IP",
+        "user_agent": "User Agent",
+        "old_data_title": "Old Data",
+        "old_data_subtitle": "Data before change",
+        "new_data_title": "New Data",
+        "new_data_subtitle": "Data after change",
+        "no_data": "No data available",
+        "cannot_display": "Cannot display this data"
+      },
+      "swal": {
+        "fetch_error": "Failed to fetch audit log data",
+        "no_data_title": "No data",
+        "no_data_msg": "No audit log data found for the selected export filters",
+        "export_csv_success": "CSV data exported successfully",
+        "export_csv_error": "Failed to export CSV data",
+        "export_excel_success": "Excel data exported successfully",
+        "export_excel_error": "Failed to export Excel data"
+      }
+    },
+    "system_monitor": {
+      "title": "System Monitor",
+      "subtitle": "Real-time status of CPU, RAM, Disk, Network, GPU, and scale instance worker queues."
+    },
+    "users_management": {
+      "title": "Manage users",
+      "subtitle": "Edit your personal information, such as your first name, password, and more.",
+      "table": {
+        "header": {
+          "user_information": "User information",
+          "departments": "Departments",
+          "permissions": "Permissions",
+          "status": "Status",
+          "menu": "Menu"
+        },
+        "detail": "Showing [ci] of [ti] items",
+        "search": "Search...",
+        "row_per_page": {
+          "display": "Display",
+          "row": "Row [cr] of [tr]"
+        },
+        "empty": {
+          "title": "Items not found",
+          "subtitle": "Try modifying your search conditions or adding a new data."
+        }
+      }
+    },
+    "users_profile": {
+      "title": "Profile",
+      "subtitle": "Edit your personal information, such as your first name, password, and more.",
+      "profile_image_card": {
+        "username": "Account Name"
+      },
+      "profile_card": {
+        "title": "Edit your profile",
+        "subtitle": "Update your personal information",
+        "field": {
+          "fname": "First Name",
+          "place_fname": "Enter first name...",
+          "lname": "Last Name",
+          "place_lname": "Enter last name...",
+          "username": "Username",
+          "place_username": "Enter username...",
+          "department": "Department",
+          "place_department": "Enter department..."
+        },
+        "button": {
+          "edit": "Edit",
+          "cancel": "Cancel",
+          "submit": "Save",
+          "wait": "Saving..."
+        }
+      },
+      "password_card": {
+        "title": "Change your password",
+        "subtitle": "Update your password for security",
+        "field": {
+          "old_password": "Current Password",
+          "place_old_password": "Enter current password...",
+          "new_password": "New Password",
+          "place_new_password": "Enter new password...",
+          "confirm_password": "Confirm Password",
+          "place_confirm_password": "Confirm your password..."
+        },
+        "button": {
+          "edit": "Edit",
+          "cancel": "Cancel",
+          "submit": "Save",
+          "wait": "Saving..."
+        }
+      }
+    },
+    "settings": {
+      "title": "Permissions Settings",
+      "subtitle": "Manage role permissions directly from the backend",
+      "meta_title": "Settings - Permissions",
+      "meta_description": "Manage role permissions and cache for the system",
+      "panel": {
+        "select_role": {
+          "title": "Select role",
+          "subtitle": "Load role and permission data from the backend",
+          "role_label": "Role",
+          "role_placeholder": "-- Select role --",
+          "roles_count": "Roles",
+          "permissions_count": "Permissions",
+          "current_user": "Current logged-in user",
+          "manage_status": "Management access",
+          "edit": "Editable",
+          "read_only": "Read only",
+          "reload": "Reload",
+          "invalidate_cache": "Invalidate cache",
+          "invalidate_wait": "Invalidating...",
+          "preload_cache": "Preload cache",
+          "preload_wait": "Preloading..."
+        },
+        "permissions": {
+          "title": "Permissions of role: {{role}}",
+          "sample_api": "Test endpoint:",
+          "save": "Save",
+          "save_wait": "Saving...",
+          "select_all": "Select all",
+          "clear_all": "Clear all",
+          "full_access_button": "Full access",
+          "selected": "Selected",
+          "available": "Available",
+          "status": "Status",
+          "loading": "Loading data...",
+          "dirty": "There are unsaved changes",
+          "synced": "Data is synced with backend",
+          "search_title": "Search permission",
+          "search_subtitle": "Type to filter the list below",
+          "search_placeholder": "e.g. edit_user, reset_password",
+          "list_title": "Permissions list",
+          "list_subtitle": "Toggle permissions for the selected role",
+          "full_access": "Full access (*)",
+          "empty_search": "No permissions match the search",
+          "permission_key": "permission key"
+        },
+        "messages": {
+          "loaded_role": "Loaded permissions for role {{role}} successfully",
+          "saved_role": "Saved permissions for role {{role}} successfully",
+          "invalidated_role": "Invalidated cache for role {{role}} successfully",
+          "preloaded_cache": "Preloaded cache successfully ({{count}} roles)"
+        },
+        "errors": {
+          "load_bootstrap": "Load roles and permissions failed",
+          "load_permissions": "Load permissions failed",
+          "save_permissions": "Save permissions failed",
+          "invalidate_cache": "Invalidate cache failed",
+          "preload_cache": "Preload cache failed",
+          "forbidden": "You do not have permission to manage permissions",
+          "role_not_found": "Role not found"
+        }
+      }
+    },
+    "support": {
+      "meta_title": "Support | Engineering Team",
+      "meta_description": "Support page for engineering department credits and contact information.",
+      "badge": "Support Center",
+      "title": "Engineering team ready to help anytime",
+      "subtitle": "This page is created to give credit to the engineering department and the main contact channel for quick help requests.",
+      "contact": {
+        "label": "Department contact",
+        "description": "If you need help, please contact the engineering department at this number."
+      },
+      "status": {
+        "label": "Service status",
+        "value": "Ready to take requests",
+        "description": "For urgent issues, call directly or go back to the home page to continue."
+      },
+      "call_button": "02-3169419 (175)",
+      "home_button": "Go to Home",
+      "members": {
+        "title": "Engineering team members",
+        "subtitle": "List of engineering team members who are available to provide support and maintain the system at all times"
+      }
+    },
+    "alarm_reports": {
+      "title": "Alarm Data Report",
+      "subtitle": "Filter, View, and Export Alarm & Alert Events",
+      "meta_title": "Alarm Reports & History",
+      "meta_description": "Alarm Data & Alert History Report",
+      "filter": {
+        "from": "From",
+        "to": "To",
+        "device": "Device",
+        "all_devices": "All Devices",
+        "severity": "Severity",
+        "all_severities": "All Severities",
+        "critical": "Critical",
+        "warning": "Warning",
+        "info": "Info",
+        "status": "Status",
+        "all_status": "All Status",
+        "active_only": "Active Only",
+        "ended_only": "Ended Only",
+        "acknowledged": "Acknowledged",
+        "unacknowledged": "Unacknowledged"
+      },
+      "kpi": {
+        "total_alarms": "Total Alarms",
+        "active": "Active (Page)",
+        "critical": "Critical (Page)",
+        "warning": "Warning (Page)",
+        "info": "Info (Page)",
+        "ack": "Ack (Page)"
+      },
+      "table": {
+        "title": "Alarm Records ({{count}})",
+        "header": {
+          "id": "ID",
+          "device_metric": "Device / Metric",
+          "severity": "Severity",
+          "trigger_value": "Trigger Value",
+          "started_at": "Started At",
+          "ended_at": "Ended At",
+          "duration": "Duration",
+          "acknowledged": "Acknowledged"
+        },
+        "badge": {
+          "active": "ACTIVE"
+        },
+        "action": {
+          "acknowledge": "Acknowledge",
+          "acknowledged": "Acknowledged",
+          "unacknowledged": "Unacknowledged"
+        },
+        "empty": {
+          "title": "No alarm records found",
+          "subtitle": "Try adjusting your filters or date range"
+        },
+        "row_per_page": {
+          "display": "Rows per page:",
+          "row": "Showing [cr] of [tr] entries"
+        }
+      },
+      "swal": {
+        "ack_confirm_title": "Confirm Alarm Acknowledgment",
+        "ack_confirm_msg": "Do you want to acknowledge the alert for {{device}} - {{metric}}?",
+        "ack_confirm_btn": "Acknowledge",
+        "cancel_btn": "Cancel",
+        "ack_success": "Alarm acknowledged successfully",
+        "ack_error": "Failed to acknowledge alarm",
+        "export_csv_success": "CSV data exported successfully",
+        "export_csv_error": "Failed to export CSV data",
+        "export_excel_success": "Excel data exported successfully",
+        "export_excel_error": "Failed to export Excel data"
+      }
+    },
+    "settings_devices": {
+      "title": "Device & Sensor Settings",
+      "subtitle": "Configure signal scaling, unit decoding, and sensor alarm rules",
+      "analog_modal": {
+        "badge": "Analog 4-20mA Calibration",
+        "tabs": {
+          "tune": "Fine-Tune Parameters",
+          "test": "Signal Simulator & Tester",
+          "twopoint": "2-Point Field Calibration"
+        },
+        "tune": {
+          "modbus_adc_range": "Modbus ADC Raw Range",
+          "ma_signal": "4mA ~ 20mA Signal",
+          "raw_min": "Raw Min (4mA)",
+          "raw_max": "Raw Max (20mA)",
+          "scaled_output_range": "Scaled Output Range ({{unit}})",
+          "display_value": "Display Value",
+          "range_min": "Range Min (at 4mA)",
+          "range_max": "Range Max (at 20mA)",
+          "unit_label": "Unit",
+          "unit_placeholder": "e.g. µS/cm, °C, m³/h",
+          "decimal_places_label": "Decimal Places",
+          "quick_zero_trim": "Quick Zero Trim (Offset Adjustment):",
+          "shift_range": "Shift Min/Max range",
+          "reset_defaults": "Reset Defaults"
+        },
+        "test": {
+          "simulate_signal": "Simulate Modbus Raw ADC Signal:",
+          "raw_count": "Raw: {{raw}} count ({{ma}} mA)",
+          "simulated_output_value": "Simulated Output Value",
+          "current_label": "Current: {{ma}} mA • Signal Status: ",
+          "status_sensor_fault_break": "Sensor Fault / Wire Break (<3.8mA)",
+          "status_under_range": "Under-range (<4mA)",
+          "status_sensor_fault_high": "Sensor Fault (>20.5mA)",
+          "status_over_range": "Over-range (>20mA)",
+          "status_normal": "Normal (4-20mA)",
+          "range_min_label": "Range Min: {{val}} {{unit}}",
+          "range_max_label": "Range Max: {{val}} {{unit}}"
+        },
+        "twopoint": {
+          "desc": "Enter the actual measured ADC raw counts from Modbus and the physical field references (Zero & Span) to let the system automatically calculate calibration parameters.",
+          "point1_title": "Point 1: Low / Zero Calibration (4mA)",
+          "point2_title": "Point 2: High / Span Calibration (20mA)",
+          "measured_raw": "Measured Raw Count",
+          "target_val": "Target Engineering Value ({{unit}})",
+          "apply_btn": "Apply 2-Point Calculation to Config"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Save & Apply Config",
+          "saving": "Saving…"
+        }
+      },
+      "alarm_modal": {
+        "badge": "Sensor Alarm Rule (alert_rules)",
+        "tabs": {
+          "thresholds": "Threshold Settings",
+          "notifications": "Notifications & Log"
+        },
+        "loading": "Loading alarm configuration...",
+        "thresholds": {
+          "alarm_active": "Alarm Active",
+          "alarm_inactive": "Alarm Inactive",
+          "alarm_active_desc": "System will monitor values and trigger Alert Events",
+          "alarm_inactive_desc": "Alarm monitoring is currently disabled",
+          "low_threshold_title": "Low Alarm Threshold",
+          "low_below_alert": "Below = Alert",
+          "low_placeholder": "e.g. 10.0 (Leave blank if unused)",
+          "low_desc_alert": "Alert when value is below {{val}}",
+          "unspecified": "Unspecified",
+          "high_threshold_title": "High Alarm Threshold",
+          "high_above_alert": "Above = Alert",
+          "high_placeholder": "e.g. 90.0 (Leave blank if unused)",
+          "high_desc_alert": "Alert when value is above {{val}}",
+          "visual_preview": "Visual Threshold Preview (Normal vs Alert Zones):",
+          "low_tag": "Low: {{val}}",
+          "high_tag": "High: {{val}}",
+          "no_min_limit": "No Min Limit",
+          "no_max_limit": "No Max Limit",
+          "normal_zone": "✓ Normal Range Zone",
+          "bar_low": "LOW",
+          "bar_normal": "NORMAL",
+          "bar_high": "HIGH",
+          "trigger_delay_label": "Trigger Delay / Sustained Time",
+          "delay_instant": "Instant (Immediately at 0s)",
+          "delay_30s": "30 Seconds",
+          "delay_1m": "1 Minute",
+          "delay_5m": "5 Minutes (Standard)",
+          "delay_10m": "10 Minutes",
+          "severity_label": "Severity Level",
+          "severity_info": "ℹInfo",
+          "severity_warning": "Warning",
+          "severity_critical": "Critical"
+        },
+        "notifications": {
+          "web_notify_title": "Active Web Notify",
+          "enabled": "Enabled: ",
+          "disabled": "Disabled: ",
+          "web_notify_enabled_desc": "Show real-time Pop-up / Toast notification on web when alarm occurs",
+          "web_notify_disabled_desc": "Disable real-time web notification for this sensor",
+          "save_alarm_title": "Save Alarm Log (Alert Events)",
+          "save_alarm_enabled_desc": "System records alarm events into database history (Alert Events)",
+          "save_alarm_disabled_desc": "Web notification only (Does not record to database/history)",
+          "line_notify_title": "LINE Messaging API",
+          "global_badge": "Global Setting",
+          "line_notify_enabled_desc_with_token": "System sends alerts via LINE Messaging API (Using global channel token and target from Notification Settings)",
+          "line_notify_enabled_desc_no_token": "System sends alerts via LINE Messaging API (Global target not yet configured in Notification Settings)",
+          "line_notify_disabled_desc": "Do not send LINE notifications for this sensor",
+          "email_notify_title": "Email Notification",
+          "email_notify_enabled_desc_with_recipients": "System sends alert emails to recipients (Using global Email list from Notification Settings)",
+          "email_notify_enabled_desc_no_recipients": "System sends alert emails (Global Email not yet configured in Notification Settings)",
+          "email_notify_disabled_desc": "Do not send Email notifications for this sensor"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Save Alarm Rule",
+          "saving": "Saving..."
+        },
+        "swal": {
+          "fetch_error_title": "Error",
+          "fetch_error_msg": "Failed to load alarm rules for this sensor.",
+          "save_success_title": "Saved Alarm Rule for {{metric}}",
+          "save_error_title": "Save Failed",
+          "save_error_msg": "Could not save alarm rule to alert_rules table."
+        }
+      },
+      "notifications": {
+        "title": "Notification Settings",
+        "subtitle": "Configure global LINE Messaging API and Email alerts for all sensors",
+        "line_enabled": "LINE Messaging API Enabled",
+        "line_disabled": "LINE Messaging API Disabled",
+        "line_enabled_desc": "System will send alerts to configured LINE Messaging API targets",
+        "line_disabled_desc": "Toggle switch to enable LINE Messaging API",
+        "line_token_label": "LINE Messaging API Target(s)",
+        "test_line_btn": "Test LINE ( {{count}} )",
+        "test_line_title": "Send test message to configured LINE Messaging API targets",
+        "testing": "Testing...",
+        "delete_token_title": "Delete this LINE target",
+        "line_placeholder": "Paste CHANNEL_ACCESS_TOKEN|USER_ID and press Enter",
+        "line_channel_access_token_placeholder": "Channel Access Token",
+        "line_recipient_id_placeholder": "User ID / Group ID / Room ID",
+        "line_add_target_btn": "Add",
+        "line_hint": "Use CHANNEL_ACCESS_TOKEN|USER_ID, CHANNEL_ACCESS_TOKEN|GROUP_ID, or CHANNEL_ACCESS_TOKEN|ROOM_ID. Separate multiple targets with comma (,).",
+        "email_enabled": "Email Notification Enabled",
+        "email_disabled": "Email Notification Disabled",
+        "email_enabled_desc": "System will send alert emails to configured recipients",
+        "email_disabled_desc": "Toggle switch to enable Email alerts",
+        "email_recipients_label": "Email Recipients",
+        "test_email_btn": "Test Email ( {{count}} ) ",
+        "test_email_title": "Send test email to configured email addresses",
+        "invalid_email": "Invalid email format",
+        "delete_email_title": "Delete this email",
+        "email_placeholder": "Type or paste Email (comma-separated if multiple) and press Enter",
+        "email_hint": "Supports multiple emails separated by comma (,), e.g. operator@plant.com, engineer@plant.com",
+        "test_all_btn": "Test All Notifications",
+        "test_all_title": "Test sending both LINE Messaging API and Email simultaneously",
+        "test_all_running": "Testing all notifications...",
+        "save_btn": "Save Notification Settings",
+        "saving": "Saving...",
+        "swal": {
+          "save_success": "Notification settings saved",
+          "save_forbidden_title": "Forbidden",
+          "save_forbidden_msg": "You do not have permission to edit notification settings.",
+          "save_error_title": "Save failed",
+          "save_error_msg": "Could not save notification settings.",
+          "test_success_title": "Notification Test Successful (Test Success)",
+          "test_success_default_msg": "Test message sent successfully",
+          "test_result_title": "Notification Test Result",
+          "test_result_warning": "Some items failed. Please verify Token / Email",
+          "test_forbidden_title": "Forbidden",
+          "test_forbidden_msg": "You do not have permission to test notifications.",
+          "test_error_title": "Test Failed",
+          "test_error_msg": "Could not execute notification test."
+        }
+      }
+    }
+  }
+}

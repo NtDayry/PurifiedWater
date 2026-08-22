@@ -1,0 +1,553 @@
+{
+  "header": {
+    "dropdown": {
+      "role_title": "สิทธิ์การใช้งาน",
+      "user_account": "บัญชีผู้ใช้งาน",
+      "settings": "ตั้งค่า",
+      "support": "Support",
+      "logout": "ออกจากระบบ"
+    }
+  },
+  "navbar": {
+    "dashboard": "แดชบอร์ด",
+    "reports": "รายงาน",
+    "alarm_reports": "รายงานการแจ้งเตือน",
+    "settings_devices": "ตั้งค่าอุปกรณ์",
+    "audit_logs": "audit log",
+    "user_managment": "จัดการผู้ใช้งาน",
+    "system_monitor": "มอนิเตอร์ระบบ",
+    "logout": "ออกจากระบบ"
+  },
+  "auth": {
+    "login": {
+      "title": "เข้าสู่ระบบ",
+      "subtitle": "ป้อน ชื่อบัญชีผู้ใช้งาน และ รหัสผ่าน เพื่อเข้าสู่ระบบ!",
+      "field": {
+        "username": "ชื่อบัญชีผู้ใช้งาน",
+        "place_username": "ระบุชื่อบัญชีผู้ใช้งาน...",
+        "password": "รหัสผ่าน",
+        "place_password": "ระบุรหัสผ่าน..."
+      },
+      "keep_logged_in": "ให้ฉันเข้าสู่ระบบอยู่เสมอ",
+      "forgot_password": "ลืมรหัสผ่าน?",
+      "no_account": "หากยังไม่มีมีบัญชีผู้ใช้งาน",
+      "register": "สมัครสมาชิก",
+      "button": {
+        "submit": "เข้าสู่ระบบ",
+        "wait": "กำลังเข้าสู่ระบบ..."
+      }
+    },
+    "register": {
+      "title": "ลงทะเบียน",
+      "subtitle": "ป้อน ชื่อบัญชีผู้ใช้งาน, รหัสผ่าน และข้อมูลอื่นๆ เพื่อสมัครสมาชิก!",
+      "field": {
+        "fname": "ชื่อ",
+        "place_fname": "ระบุชื่อ...",
+        "lname": "นามสกุล",
+        "place_lname": "ระบุนามสกุล...",
+        "department": "ฝ่าย/แผนก",
+        "place_department": "ระบุฝ่าย/แผนก...",
+        "username": "ชื่อบัญชีผู้ใช้งาน",
+        "place_username": "ระบุชื่อบัญชีผู้ใช้งาน...",
+        "password": "รหัสผ่าน",
+        "place_password": "ระบุรหัสผ่าน...",
+        "confirm_password": "ยืนยันรหัสผ่าน",
+        "place_confirm_password": "ยืนยันรหัสผ่าน..."
+      },
+      "privacy_notice": {
+        "prefix": "การสร้างบัญชีหมายความว่าคุณยอมรับ",
+        "terms": "ข้อกําหนดและเงื่อนไข",
+        "and": "และ",
+        "privacy": "นโยบายความเป็นส่วนตัว",
+        "suffix": "ของเรา"
+      },
+      "has_account": "หากมีบัญชีผู้ใช้งานแล้ว",
+      "login": "เข้าสู่ระบบ",
+      "button": {
+        "submit": "ลงทะเบียน",
+        "wait": "กำลังลงทะเบียน..."
+      },
+      "error_alert": "เกิดข้อผิดพลาดในการลงทะเบียน",
+      "error_username_exists": "ชื่อบัญชีผู้ใช้งานนี้มีอยู่แล้ว",
+      "success_alert": "ลงทะเบียนสำเร็จ! คุณสามารถเข้าสู่ระบบได้แล้ว"
+    }
+  },
+  "page": {
+    "audit_logs": {
+      "title": "ประวัติ audit log",
+      "subtitle": "ดูบันทึกการกระทำของผู้ใช้และข้อมูล request ที่ถูกส่งเข้าระบบ",
+      "filter": {
+        "from": "จากวันที่",
+        "to": "ถึงวันที่",
+        "action": "Action",
+        "entity": "Entity",
+        "all_actions": "ทุก Action",
+        "all_entities": "ทุก Entity"
+      },
+      "kpi": {
+        "total_records": "บันทึกทั้งหมด",
+        "creates": "สร้าง (หน้านี้)",
+        "updates": "แก้ไข (หน้านี้)",
+        "deletes": "ลบ (หน้านี้)",
+        "auth": "การยืนยันตัวตน (หน้านี้)"
+      },
+      "table": {
+        "header": {
+          "created_at": "เวลา",
+          "username": "ผู้ใช้",
+          "action": "Action",
+          "entity": "Entity",
+          "entity_id": "Entity ID",
+          "ip_address": "IP",
+          "user_agent": "User-Agent"
+        },
+        "detail": "แสดง [ci] จาก [ti] รายการ",
+        "search": "ค้นหา...",
+        "view_details": "ดูข้อมูลเพิ่มเติม",
+        "row_per_page": {
+          "display": "แสดง",
+          "row": "แถว [cr] จาก [tr]"
+        },
+        "empty": {
+          "title": "ไม่พบบันทึก audit log",
+          "subtitle": "ลองแก้ไขเงื่อนไขการค้นหาหรือรอสักครู่แล้วลองใหม่"
+        }
+      },
+      "modal": {
+        "title": "ดู old data / new data",
+        "user": "ผู้ใช้",
+        "date": "วันที่",
+        "ip": "IP",
+        "user_agent": "User agent",
+        "old_data_title": "Old data",
+        "old_data_subtitle": "ข้อมูลก่อนการเปลี่ยนแปลง",
+        "new_data_title": "New data",
+        "new_data_subtitle": "ข้อมูลหลังการเปลี่ยนแปลง",
+        "no_data": "ไม่มีข้อมูล",
+        "cannot_display": "ไม่สามารถแสดงข้อมูลนี้ได้"
+      },
+      "swal": {
+        "fetch_error": "เกิดข้อผิดพลาดในการดึงข้อมูล Audit Log",
+        "no_data_title": "ไม่พบข้อมูล",
+        "no_data_msg": "ไม่มีข้อมูล Audit Log สำหรับส่งออกตามเงื่อนไขที่เลือก",
+        "export_csv_success": "ส่งออกข้อมูล CSV เรียบร้อยแล้ว",
+        "export_csv_error": "เกิดข้อผิดพลาดในการส่งออกข้อมูล CSV",
+        "export_excel_success": "ส่งออกข้อมูล Excel เรียบร้อยแล้ว",
+        "export_excel_error": "เกิดข้อผิดพลาดในการส่งออกข้อมูล Excel"
+      }
+    },
+    "system_monitor": {
+      "title": "มอนิเตอร์ระบบ",
+      "subtitle": "สถานะแบบเรียลไทม์ของ CPU, RAM, ดิสก์, เครือข่าย, GPU และคิวผู้ปฏิบัติงานอินสแตนซ์",
+      "host_metrics": {
+        "title": "ข้อมูลฮาร์ดแวร์ของโฮสต์",
+        "subtitle": "ตรวจสอบสถานะของ CPU, RAM และ Disk ของโฮสต์แบบเรียลไทม์"
+      },
+      "container_metrics": {
+        "title": "ข้อมูล container ที่กำลังทำงาน",
+        "subtitle": "ตรวจสอบ container ที่กำลังทำงานอยู่แบบเรียลไทม์"
+      }
+    },
+    "users_management": {
+      "title": "จัดการผู้ใช้งาน",
+      "subtitle": "แก้ไขข้อมูลส่วนตัวของคุณ เช่น ชื่อ-สกุล, รหัสผ่าน และอื่นๆ",
+      "table": {
+        "header": {
+          "user_information": "ข้อมูลผู้ใช้งาน",
+          "departments": "แผนก",
+          "permissions": "สิทธิ์",
+          "status": "สถานะ",
+          "menu": "เมนู"
+        },
+        "detail": "แสดง [ci] จาก [ti] รายการ",
+        "search": "ค้นหา...",
+        "row_per_page": {
+          "display": "แสดง",
+          "row": "แถว [cr] จาก [tr]"
+        },
+        "empty": {
+          "title": "ไม่พบรายการ",
+          "subtitle": "ลองแก้ไขเงื่อนไขการค้นหาหรือเพิ่มข้อมูลใหม่"
+        }
+      }
+    },
+    "users_profile": {
+      "title": "ข้อมูลส่วนตัว",
+      "subtitle": "แก้ไขข้อมูลส่วนตัวของคุณ เช่น ชื่อ-สกุล, รหัสผ่าน และอื่นๆ",
+      "profile_image_card": {
+        "username": "ชื่อบัญชี"
+      },
+      "profile_card": {
+        "title": "แก้ไขข้อมูลส่วนตัว",
+        "subtitle": "อัปเดตข้อมูลส่วนบุคคลของคุณ",
+        "field": {
+          "fname": "ชื่อ",
+          "place_fname": "ระบุชื่อ...",
+          "lname": "นามสกุล",
+          "place_lname": "ระบุนามสกุล...",
+          "username": "ชื่อบัญชีผู้ใช้งาน",
+          "place_username": "ระบุบัญชีผู้ใช้งาน...",
+          "department": "ฝ่าย/แผนก",
+          "place_department": "ระบุฝ่าย/แผนก..."
+        },
+        "button": {
+          "edit": "แก้ไข",
+          "cancel": "ยกเลิก",
+          "submit": "บันทึก",
+          "wait": "กำลังบันทึก..."
+        }
+      },
+      "password_card": {
+        "title": "เปลี่ยนรหัสผ่าน",
+        "subtitle": "อัปเดตรหัสผ่านของคุณเพื่อความปลอดภัย",
+        "field": {
+          "old_password": "รหัสผ่านปัจจุบัน",
+          "place_old_password": "ระบุรหัสผ่าน...",
+          "new_password": "รหัสผ่านไหม่",
+          "place_new_password": "ระบุรหัสผ่านใหม่...",
+          "confirm_password": "ยืนยันรหัสผ่าน",
+          "place_confirm_password": "ยืนยันรหัสผ่าน..."
+        },
+        "button": {
+          "edit": "แก้ไข",
+          "cancel": "ยกเลิก",
+          "submit": "บันทึก",
+          "wait": "กำลังบันทึก..."
+        }
+      }
+    },
+    "settings": {
+      "title": "ตั้งค่าสิทธิ์",
+      "subtitle": "จัดการสิทธิ์ของ role จาก backend โดยตรง",
+      "meta_title": "ตั้งค่า - สิทธิ์",
+      "meta_description": "จัดการ role permissions และ cache ของระบบ",
+      "panel": {
+        "select_role": {
+          "title": "เลือกรายการ role",
+          "subtitle": "ดึงข้อมูล role และ permission จาก backend",
+          "role_label": "Role",
+          "role_placeholder": "-- เลือก role --",
+          "roles_count": "Roles",
+          "permissions_count": "Permissions",
+          "current_user": "ผู้ใช้ล็อกอินปัจจุบัน",
+          "manage_status": "สถานะจัดการ",
+          "edit": "แก้ไขได้",
+          "read_only": "อ่านอย่างเดียว",
+          "reload": "โหลดใหม่",
+          "invalidate_cache": "ลบ cache",
+          "invalidate_wait": "กำลังลบ cache...",
+          "preload_cache": "Preload cache",
+          "preload_wait": "กำลัง preload..."
+        },
+        "permissions": {
+          "title": "สิทธิ์ของ role: {{role}}",
+          "sample_api": "API ตัวอย่างที่ใช้ทดสอบ:",
+          "save": "บันทึก",
+          "save_wait": "กำลังบันทึก...",
+          "select_all": "เลือกทั้งหมด",
+          "clear_all": "ล้างทั้งหมด",
+          "full_access_button": "Full access",
+          "selected": "ที่เลือกอยู่",
+          "available": "รายการทั้งหมด",
+          "status": "สถานะ",
+          "loading": "กำลังโหลดข้อมูล...",
+          "dirty": "มีการเปลี่ยนแปลงที่ยังไม่บันทึก",
+          "synced": "ข้อมูลตรงกับ backend แล้ว",
+          "search_title": "ค้นหา permission",
+          "search_subtitle": "พิมพ์เพื่อกรองรายการด้านล่าง",
+          "search_placeholder": "เช่น edit_user, reset_password",
+          "list_title": "รายการ permissions",
+          "list_subtitle": "ติ๊กเพื่อเปิด/ปิดสิทธิ์ของ role ที่เลือก",
+          "full_access": "Full access (*)",
+          "empty_search": "ไม่มี permission ที่ตรงกับคำค้น",
+          "permission_key": "permission key"
+        },
+        "messages": {
+          "loaded_role": "โหลดสิทธิ์ของ role {{role}} เรียบร้อย",
+          "saved_role": "บันทึก permissions ของ role {{role}} เรียบร้อย",
+          "invalidated_role": "ลบ cache ของ role {{role}} เรียบร้อย",
+          "preloaded_cache": "preload cache สำเร็จ ({{count}} roles)"
+        },
+        "errors": {
+          "load_bootstrap": "ดึงข้อมูล roles และ permissions ไม่สำเร็จ",
+          "load_permissions": "โหลด permissions ไม่สำเร็จ",
+          "save_permissions": "บันทึก permissions ไม่สำเร็จ",
+          "invalidate_cache": "ลบ cache ไม่สำเร็จ",
+          "preload_cache": "preload cache ไม่สำเร็จ",
+          "forbidden": "คุณไม่มีสิทธิ์จัดการ permissions",
+          "role_not_found": "ไม่พบ role"
+        }
+      }
+    },
+    "support": {
+      "meta_title": "Support | ทีมวิศวกรรม",
+      "meta_description": "หน้าสนับสนุนสำหรับเครดิตแผนกวิศวกรรมและข้อมูลติดต่อ",
+      "badge": "ศูนย์สนับสนุน",
+      "title": "ทีมวิศวกรรมพร้อมดูแลและช่วยเหลือตลอดเวลา",
+      "subtitle": "หน้านี้จัดทำขึ้นเพื่อให้เครดิตกับแผนกวิศวกรรม และช่องทางติดต่อหลักสำหรับการขอความช่วยเหลือแบบรวดเร็ว",
+      "contact": {
+        "label": "เบอร์ติดต่อแผนก",
+        "description": "หากต้องการความช่วยเหลือ กรุณาติดต่อแผนกวิศวกรรมได้ที่เบอร์นี้"
+      },
+      "status": {
+        "label": "สถานะบริการ",
+        "value": "พร้อมบริการ",
+        "description": "สำหรับเรื่องเร่งด่วน ให้ติดต่อสายตรงหรือกลับไปหน้าหลักเพื่อใช้งานต่อ"
+      },
+      "call_button": "02-3169419 ต่อ 175",
+      "home_button": "ไปหน้าหลัก",
+      "members": {
+        "title": "รายชื่อทีมวิศวกรรม",
+        "subtitle": "รายชื่อสมาชิกในทีมวิศวกรรมที่พร้อมให้การสนับสนุนและดูแลระบบอย่างเต็มที่"
+      }
+    },
+    "alarm_reports": {
+      "title": "รายงานและประวัติการแจ้งเตือน",
+      "subtitle": "กรอง ดู และส่งออกประวัติการแจ้งเตือนของระบบ",
+      "meta_title": "รายงานการแจ้งเตือนและประวัติ",
+      "meta_description": "รายงานข้อมูลการแจ้งเตือนและประวัติเตือนภัย",
+      "filter": {
+        "from": "จากวันที่",
+        "to": "ถึงวันที่",
+        "device": "อุปกรณ์",
+        "all_devices": "อุปกรณ์ทั้งหมด",
+        "severity": "ระดับความรุนแรง",
+        "all_severities": "ทุกระดับความรุนแรง",
+        "critical": "วิกฤต",
+        "warning": "เตือน",
+        "info": "ข้อมูล",
+        "status": "สถานะ",
+        "all_status": "ทุกสถานะ",
+        "active_only": "กำลังเตือนอยู่เท่านั้น",
+        "ended_only": "สิ้นสุดแล้วเท่านั้น",
+        "acknowledged": "รับทราบแล้ว",
+        "unacknowledged": "ยังไม่ได้รับทราบ"
+      },
+      "kpi": {
+        "total_alarms": "การแจ้งเตือนทั้งหมด",
+        "active": "กำลังเตือน (หน้านี้)",
+        "critical": "วิกฤต (หน้านี้)",
+        "warning": "เตือน (หน้านี้)",
+        "info": "ข้อมูล (หน้านี้)",
+        "ack": "รับทราบแล้ว (หน้านี้)"
+      },
+      "table": {
+        "title": "บันทึกประวัติการแจ้งเตือน ({{count}})",
+        "header": {
+          "id": "ไอดี",
+          "device_metric": "อุปกรณ์ / ค่าที่วัด",
+          "severity": "ระดับความรุนแรง",
+          "trigger_value": "ค่าที่ทำให้เตือน",
+          "started_at": "เริ่มเตือนเมื่อ",
+          "ended_at": "สิ้นสุดเมื่อ",
+          "duration": "ระยะเวลา",
+          "acknowledged": "การรับทราบ"
+        },
+        "badge": {
+          "active": "กำลังเตือน"
+        },
+        "action": {
+          "acknowledge": "รับทราบ",
+          "acknowledged": "รับทราบแล้ว",
+          "unacknowledged": "ยังไม่รับทราบ"
+        },
+        "empty": {
+          "title": "ไม่พบบันทึกการแจ้งเตือน",
+          "subtitle": "ลองปรับเปลี่ยนตัวกรองหรือช่วงวันที่ค้นหา"
+        },
+        "row_per_page": {
+          "display": "แสดง",
+          "row": "แถว [cr] จาก [tr]"
+        }
+      },
+      "swal": {
+        "ack_confirm_title": "ยืนยันการรับทราบการแจ้งเตือน",
+        "ack_confirm_msg": "ต้องการรับทราบการแจ้งเตือนของ {{device}} - {{metric}} ใช่หรือไม่?",
+        "ack_confirm_btn": "รับทราบ",
+        "cancel_btn": "ยกเลิก",
+        "ack_success": "รับทราบการแจ้งเตือนเรียบร้อยแล้ว",
+        "ack_error": "เกิดข้อผิดพลาดในการรับทราบการแจ้งเตือน",
+        "export_csv_success": "ส่งออกข้อมูล CSV เรียบร้อยแล้ว",
+        "export_csv_error": "เกิดข้อผิดพลาดในการส่งออกข้อมูล CSV",
+        "export_excel_success": "ส่งออกข้อมูล Excel เรียบร้อยแล้ว",
+        "export_excel_error": "เกิดข้อผิดพลาดในการส่งออกข้อมูล Excel"
+      }
+    },
+    "settings_devices": {
+      "title": "ตั้งค่าอุปกรณ์และเซนเซอร์",
+      "subtitle": "กำหนดค่าสเกลสัญญาณ การแปลงหน่วย และกฎการเตือนภัยของเซนเซอร์",
+      "analog_modal": {
+        "badge": "การปรับเทียบค่า Analog 4-20mA",
+        "tabs": {
+          "tune": "ปรับแต่งพารามิเตอร์",
+          "test": "จำลองสัญญาณ & ทดสอบ",
+          "twopoint": "ปรับเทียบ 2 จุดหน้างาน (2-Point)"
+        },
+        "tune": {
+          "modbus_adc_range": "ช่วงสัญญาณ Modbus ADC Raw",
+          "ma_signal": "สัญญาณ 4mA ~ 20mA",
+          "raw_min": "Raw ต่ำสุด (4mA)",
+          "raw_max": "Raw สูงสุด (20mA)",
+          "scaled_output_range": "ช่วงค่าที่แปลงสเกลแล้ว ({{unit}})",
+          "display_value": "ค่าแสดงผล",
+          "range_min": "ค่าต่ำสุด (ที่ 4mA)",
+          "range_max": "ค่าสูงสุด (ที่ 20mA)",
+          "unit_label": "หน่วยวัด (Unit)",
+          "unit_placeholder": "เช่น µS/cm, °C, m³/h",
+          "decimal_places_label": "ตำแหน่งทศนิยม (Decimal Places)",
+          "quick_zero_trim": "Quick Zero Trim (ปรับชดเชยค่าเบี่ยงเบน Offset):",
+          "shift_range": "เลื่อนช่วงค่า Min/Max",
+          "reset_defaults": "คืนค่าเริ่มต้น"
+        },
+        "test": {
+          "simulate_signal": "จำลองสัญญาณ Modbus Raw ADC:",
+          "raw_count": "Raw: {{raw}} count ({{ma}} mA)",
+          "simulated_output_value": "ค่าแสดงผลจากการจำลอง",
+          "current_label": "กระแสไฟฟ้า: {{ma}} mA • สถานะสัญญาณ: ",
+          "status_sensor_fault_break": "เซนเซอร์ผิดพลาด / สายขาด (<3.8mA)",
+          "status_under_range": "ต่ำกว่าช่วงสัญญาณ (<4mA)",
+          "status_sensor_fault_high": "เซนเซอร์ผิดพลาด (>20.5mA)",
+          "status_over_range": "เกินช่วงสัญญาณ (>20mA)",
+          "status_normal": "ปกติ (4-20mA)",
+          "range_min_label": "ค่าต่ำสุด: {{val}} {{unit}}",
+          "range_max_label": "ค่าสูงสุด: {{val}} {{unit}}"
+        },
+        "twopoint": {
+          "desc": "ป้อนค่าที่อ่านได้จริงจาก Modbus (ADC Raw Count) และค่าอ้างอิงจริงหน้างาน (Zero Reference & Span Reference) เพื่อให้ระบบคำนวณและปรับสเกลอัตโนมัติ",
+          "point1_title": "Point 1: Low / Zero Calibration (จุดต่ำสุด 4mA)",
+          "point2_title": "Point 2: High / Span Calibration (จุดสูงสุด 20mA)",
+          "measured_raw": "ค่า Raw Count ที่วัดได้จริง",
+          "target_val": "ค่าเป้าหมายจริงหน้างาน ({{unit}})",
+          "apply_btn": "นำผลคำนวณ 2 จุดไปปรับใช้"
+        },
+        "actions": {
+          "cancel": "ยกเลิก",
+          "save": "บันทึกและนำไปใช้",
+          "saving": "กำลังบันทึก…"
+        }
+      },
+      "alarm_modal": {
+        "badge": "กฎการเตือนภัยของเซนเซอร์ (alert_rules)",
+        "tabs": {
+          "thresholds": "ตั้งค่าเกณฑ์เตือนภัย (Threshold Settings)",
+          "notifications": "การแจ้งเตือน & บันทึก (Notifications & Log)"
+        },
+        "loading": "กำลังโหลดการตั้งค่าเตือนภัย...",
+        "thresholds": {
+          "alarm_active": "เปิดใช้งานการเตือนภัย (Alarm Active)",
+          "alarm_inactive": "ปิดการเตือนภัย (Alarm Inactive)",
+          "alarm_active_desc": "ระบบจะตรวจสอบค่าและสร้าง Alert Event",
+          "alarm_inactive_desc": "ระบบปิดการแจ้งเตือนอยู่",
+          "low_threshold_title": "Low Alarm Threshold (ขีดจำกัดต่ำสุด)",
+          "low_below_alert": "ต่ำกว่า = เตือน",
+          "low_placeholder": "เช่น 10.0 (เว้นว่างไว้หากไม่ต้องการใช้)",
+          "low_desc_alert": "แจ้งเตือนเมื่อค่าต่ำกว่า {{val}}",
+          "unspecified": "ไม่ระบุ",
+          "high_threshold_title": "High Alarm Threshold (ขีดจำกัดสูงสุด)",
+          "high_above_alert": "สูงกว่า = เตือน",
+          "high_placeholder": "เช่น 90.0 (เว้นว่างไว้หากไม่ต้องการใช้)",
+          "high_desc_alert": "แจ้งเตือนเมื่อค่าสูงกว่า {{val}}",
+          "visual_preview": "Visual Threshold Preview (ช่วงค่าปกติ vs ช่วงเตือนภัย):",
+          "low_tag": "Low: {{val}}",
+          "high_tag": "High: {{val}}",
+          "no_min_limit": "ไม่มีขีดจำกัดต่ำสุด",
+          "no_max_limit": "ไม่มีขีดจำกัดสูงสุด",
+          "normal_zone": "✓ ช่วงค่าปกติ (Normal Range Zone)",
+          "bar_low": "LOW",
+          "bar_normal": "NORMAL",
+          "bar_high": "HIGH",
+          "trigger_delay_label": "Trigger Delay / Sustained Time (ระยะเวลาต้องเกินเกณฑ์ต่อเนื่อง)",
+          "delay_instant": "Instant (ทันทีที่เกินเกณฑ์ 0s)",
+          "delay_30s": "30 วินาที (30s)",
+          "delay_1m": "1 นาที (1m)",
+          "delay_5m": "5 นาที (5m - มาตรฐาน)",
+          "delay_10m": "10 นาที (10m)",
+          "severity_label": "Severity Level (ระดับความรุนแรง)",
+          "severity_info": "ℹ️ Info (แจ้งข้อมูล)",
+          "severity_warning": "⚠️ Warning (แจ้งเตือน)",
+          "severity_critical": "🚨 Critical (วิกฤต)"
+        },
+        "notifications": {
+          "web_notify_title": "Active Web Notify (เปิดการแจ้งเตือนหน้าเว็บ)",
+          "enabled": "เปิดอยู่: ",
+          "disabled": "ปิดอยู่: ",
+          "web_notify_enabled_desc": "แสดงการแจ้งเตือน Pop-up / Toast บนหน้าเว็บแบบเรียลไทม์เมื่อเกิด Alarm",
+          "web_notify_disabled_desc": "ปิดการแจ้งเตือนหน้าเว็บเรียลไทม์สำหรับ Sensor นี้",
+          "save_alarm_title": "บันทึกประวัติ Alarm (Save Alarm Log)",
+          "save_alarm_enabled_desc": "ระบบจะบันทึกประวัติเหตุการณ์ Alarm ลงในฐานข้อมูล (Alert Events)",
+          "save_alarm_disabled_desc": "สำหรับใช้งานแจ้งเตือนหน้าเว็บอย่างเดียว (Web Notification Only - ไม่บันทึกลงประวัติ/ฐานข้อมูล)",
+          "line_notify_title": "LINE Messaging API",
+          "global_badge": "Global Setting",
+          "line_notify_enabled_desc_with_token": "ระบบจะส่งข้อความผ่าน LINE Messaging API (ใช้ Channel Token และปลายทางส่วนกลางจาก Notification Settings)",
+          "line_notify_enabled_desc_no_token": "ระบบจะส่งข้อความผ่าน LINE Messaging API (ยังไม่ได้ตั้งค่าปลายทางใน Notification Settings)",
+          "line_notify_disabled_desc": "ไม่ส่งการแจ้งเตือนผ่าน LINE สำหรับ Sensor นี้",
+          "email_notify_title": "Email Notification",
+          "email_notify_enabled_desc_with_recipients": "ระบบจะส่งอีเมลแจ้งเตือนไปยังผู้รับ (ใช้รายชื่อ Email ส่วนกลางจาก Notification Settings)",
+          "email_notify_enabled_desc_no_recipients": "ระบบจะส่งอีเมลแจ้งเตือนไปยังผู้รับ (ยังไม่ได้ตั้งค่า Email ใน Notification Settings)",
+          "email_notify_disabled_desc": "ไม่ส่งการแจ้งเตือนผ่าน Email สำหรับ Sensor นี้"
+        },
+        "actions": {
+          "cancel": "ยกเลิก",
+          "save": "บันทึกกฎการเตือนภัย",
+          "saving": "กำลังบันทึก..."
+        },
+        "swal": {
+          "fetch_error_title": "เกิดข้อผิดพลาด",
+          "fetch_error_msg": "ไม่สามารถโหลดการตั้งค่ากฎการเตือนภัยสำหรับเซนเซอร์นี้ได้",
+          "save_success_title": "บันทึกกฎเตือนภัยสำหรับ {{metric}} เรียบร้อยแล้ว",
+          "save_error_title": "บันทึกไม่สำเร็จ",
+          "save_error_msg": "ไม่สามารถบันทึกกฎเตือนภัยลงในฐานข้อมูล alert_rules ได้"
+        }
+      },
+      "notifications": {
+        "title": "Notification Settings",
+        "subtitle": "ตั้งค่า LINE Messaging API และ Email สำหรับทุก Sensor ร่วมกัน (Global)",
+        "line_enabled": "LINE Messaging API เปิดใช้งาน",
+        "line_disabled": "LINE Messaging API ปิดอยู่",
+        "line_enabled_desc": "ระบบจะส่งแจ้งเตือนไปยังปลายทาง LINE Messaging API ที่ตั้งค่าไว้",
+        "line_disabled_desc": "เปิดสวิตช์เพื่อเริ่มใช้งาน LINE Messaging API",
+        "line_token_label": "LINE Messaging API Target(s)",
+        "test_line_btn": "ทดสอบ LINE ( {{count}} )",
+        "test_line_title": "ส่งข้อความทดสอบไปยังปลายทาง LINE Messaging API ที่ตั้งค่าไว้",
+        "testing": "กำลังทดสอบ...",
+        "delete_token_title": "ลบปลายทาง LINE นี้",
+        "line_placeholder": "วาง CHANNEL_ACCESS_TOKEN|USER_ID แล้วกด Enter",
+        "line_channel_access_token_placeholder": "Channel Access Token",
+        "line_recipient_id_placeholder": "User ID / Group ID / Room ID",
+        "line_add_target_btn": "เพิ่ม",
+        "line_hint": "ใช้รูปแบบ CHANNEL_ACCESS_TOKEN|USER_ID, CHANNEL_ACCESS_TOKEN|GROUP_ID หรือ CHANNEL_ACCESS_TOKEN|ROOM_ID และคั่นหลายปลายทางด้วยเครื่องหมายจุลภาค (,)",
+        "email_enabled": "Email Notification เปิดใช้งาน",
+        "email_disabled": "Email Notification ปิดอยู่",
+        "email_enabled_desc": "ระบบจะส่ง Email แจ้งเตือนไปยังที่อยู่ที่ตั้งค่าไว้",
+        "email_disabled_desc": "เปิดสวิตช์เพื่อเริ่มใช้งาน Email",
+        "email_recipients_label": "Email ผู้รับการแจ้งเตือน",
+        "test_email_btn": "ทดสอบ Email ( {{count}} )",
+        "test_email_title": "ส่งอีเมลทดสอบไปยังที่อยู่อีเมลที่ตั้งค่าไว้",
+        "invalid_email": "รูปแบบ Email ไม่ถูกต้อง",
+        "delete_email_title": "ลบ Email นี้",
+        "email_placeholder": "พิมพ์หรือวาง Email (คั่นด้วย , หากมีหลายอีเมล) แล้วกด Enter",
+        "email_hint": "รองรับหลาย Email คั่นด้วยเครื่องหมายจุลภาค (,) เช่น operator@plant.com, engineer@plant.com",
+        "test_all_btn": "ทดสอบการแจ้งเตือนทั้งหมด (Test All)",
+        "test_all_title": "ทดสอบส่งทั้ง LINE Messaging API และ Email พร้อมกัน",
+        "test_all_running": "กำลังทดสอบส่งแจ้งเตือนทั้งหมด...",
+        "save_btn": "Save Notification Settings",
+        "saving": "กำลังบันทึก...",
+        "swal": {
+          "save_success": "บันทึกการตั้งค่าการแจ้งเตือนเรียบร้อยแล้ว",
+          "save_forbidden_title": "ไม่มีสิทธิ์เข้าถึง",
+          "save_forbidden_msg": "คุณไม่มีสิทธิ์แก้ไขการตั้งค่าการแจ้งเตือน",
+          "save_error_title": "บันทึกไม่สำเร็จ",
+          "save_error_msg": "ไม่สามารถบันทึกการตั้งค่าการแจ้งเตือนได้",
+          "test_success_title": "ทดสอบการแจ้งเตือนสำเร็จ (Test Success)",
+          "test_success_default_msg": "ส่งข้อความทดสอบเรียบร้อยแล้ว",
+          "test_result_title": "ผลการทดสอบการแจ้งเตือน (Test Result)",
+          "test_result_warning": "มีบางรายการไม่สำเร็จ กรุณาตรวจสอบ Token / Email",
+          "test_forbidden_title": "ไม่มีสิทธิ์เข้าถึง",
+          "test_forbidden_msg": "คุณไม่มีสิทธิ์ทดสอบการแจ้งเตือน",
+          "test_error_title": "การทดสอบล้มเหลว",
+          "test_error_msg": "ไม่สามารถดำเนินการทดสอบการแจ้งเตือนได้"
+        }
+      }
+    }
+  }
+}

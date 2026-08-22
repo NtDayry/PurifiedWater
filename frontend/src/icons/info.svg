@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+    class="iconify iconify--flat-color-icons mnl__icon__root MuiBox-root css-1beadj"
+    viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="21" fill="#2196F3"></circle>
+    <path fill="#fff" d="M22 22h4v11h-4z"></path>
+    <circle cx="24" cy="16.5" r="2.5" fill="#fff"></circle>
+</svg>

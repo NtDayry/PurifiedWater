@@ -1,0 +1,150 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+      - .env.production
+    environment:
+      # Point psutil at the host's procfs so CPU / RAM / Network stats
+      # reflect the physical machine instead of the container's isolated view.
+      HOST_PROC: /host/proc
+      HOST_SYS: /host/sys
+    volumes:
+      - ./storage:/app/storage
+      - ./assets:/app/assets
+      - ./logs:/app/logs
+      - ./app:/app/app
+      # Mount host proc/sys so psutil reports HOST machine metrics
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    restart: unless-stopped
+    expose:
+      - "8000"
+    networks:
+      - purified-water
+    depends_on:          
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host # บังคับให้ข้ามผ่านระบบแปลงไอพีของ Docker
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/html:/usr/share/nginx/html:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - purified-water
+
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=engineer
+      - POSTGRES_PASSWORD=plant172839
+      - POSTGRES_DB=purified-water
+    ports:
+      - "5432:5432"
+    shm_size: '256mb'
+    volumes:
+      - ./storage/database/postgres/data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+    networks:
+      - purified-water
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U engineer -d purified-water"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - ./storage/redis:/data
+    networks:
+      - purified-water
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================
+  # Modbus RS485 Reader Service
+  # Polls sensor devices every 1 second
+  # Pushes real-time data via WebSocket
+  # Aggregates and saves 1-min data to DB
+  # =========================================
+  modbus-reader:
+    build:
+      context: ./modbus_service
+      dockerfile: Dockerfile
+    container_name: modbus-reader
+    restart: unless-stopped
+    volumes:
+      - ./modbus_service:/app
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0  # Enable on Linux Server / Raspberry Pi
+    group_add:
+      - dialout
+    env_file:
+      - .env
+    environment:
+      - API_BASE_URL=http://app:8000/api
+      - WS_URL=ws://app:8000/ws/sensor-ingest
+      - SERIAL_PORT=/dev/ttyACM0
+      - BAUD_RATE=9600
+      - POLL_INTERVAL=1
+      - AGGREGATE_INTERVAL=60
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - purified-water
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - purified-water
+
+volumes:
+  portainer_data:
+
+networks:
+  purified-water:
+    external: true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Label Inspection
+Comment=Run Label Inspection Script
+Exec=/bin/bash -c "cd ~/OLED-MONITOR && ./main.sh"
+Path=~/OLED-MONITOR/
+Categories=Production;
+Name[en_US]=OLED-MONITOR
+Name[en_GB]=OLED-MONITOR
