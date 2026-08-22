@@ -47,6 +47,12 @@ export default defineConfig(({ mode }) => {
       secure: false,
       configure: configureProxy,
     },
+    '/static': {
+      target: apiTarget,
+      changeOrigin: true,
+      secure: false,
+      configure: configureProxy,
+    },
   };
 
   return {

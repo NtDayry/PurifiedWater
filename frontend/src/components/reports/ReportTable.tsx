@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SensorReportResponse } from '@_types/sensor';
 import { DateRange } from '@/store/reportsStore';
 import { dateUtils } from '@/components/utils/DatetimeFormat';
@@ -19,6 +20,7 @@ export interface ReportTableProps {
 }
 
 export const ReportTable = memo(({ dateRange, customColors, initialData }: ReportTableProps) => {
+  const { t } = useTranslation();
   const [tableData, setTableData] = useState<SensorReportResponse | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
@@ -125,7 +127,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
   if (isLoading && !activeData) {
     return (
       <div className="h-[250px] flex items-center justify-center bg-white shadow-xl rounded-xl border dark:bg-white/[0.03] dark:border-white/[0.05]">
-        <p className="text-gray-500">Loading table data...</p>
+        <p className="text-gray-500">{t('page.reports.table.loading_data')}</p>
       </div>
     );
   }
@@ -133,7 +135,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
   if (!allSensors.length && !isLoading) {
     return (
       <div className="h-[250px] flex items-center justify-center bg-white shadow-xl rounded-xl border dark:bg-white/[0.03] dark:border-white/[0.05]">
-        <p className="text-gray-500">No data available for table view.</p>
+        <p className="text-gray-500">{t('page.reports.table.no_data')}</p>
       </div>
     );
   }
@@ -144,7 +146,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
         <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px] z-40 flex items-center justify-center rounded-xl">
           <div className="flex items-center gap-2 text-xs font-semibold text-brand-600 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-lg shadow border border-gray-200 dark:border-gray-700">
             <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-brand-600"></span>
-            Loading page {currentPage}...
+            {t('page.reports.table.loading_page', { page: currentPage })}
           </div>
         </div>
       )}
@@ -152,10 +154,14 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
       {/* Table Header Info Bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3.5 sm:px-6 sm:py-4 gap-2 border-b border-gray-100 dark:border-gray-800">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-gray-800 dark:text-white/90">Combined Sensor Data Table</h3>
+          <h3 className="text-base sm:text-lg font-bold text-gray-800 dark:text-white/90">{t('page.reports.table.title')}</h3>
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-            Total sensors: {allSensors.length} | Showing {startEntry.toLocaleString()} – {endEntry.toLocaleString()} of{' '}
-            {totalCount.toLocaleString()} entries
+            {t('page.reports.table.subtitle', {
+              sensors: allSensors.length,
+              start: startEntry.toLocaleString(),
+              end: endEntry.toLocaleString(),
+              total: totalCount.toLocaleString(),
+            })}
           </p>
         </div>
       </div>
@@ -176,7 +182,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
                 isHeader
                 className="sticky left-0 top-0 z-30 bg-gray-100 dark:bg-gray-800 px-4 py-3 font-bold text-gray-700 dark:text-gray-200 text-start text-xs sm:text-sm whitespace-nowrap min-w-[150px] sm:min-w-[170px] border-r border-gray-200 dark:border-gray-700 shadow-[2px_0_4px_rgba(0,0,0,0.06)]"
               >
-                Timestamp
+                {t('page.reports.table.header.timestamp')}
               </TableCell>
               {allSensors.map((s) => (
                 <TableCell
@@ -222,7 +228,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
             {/* MIN Row */}
             <tr className="bg-amber-50/95 dark:bg-amber-950/90 backdrop-blur-[2px] border-b border-amber-100/50 dark:border-amber-900/30">
               <td className="sticky left-0 z-30 bg-amber-50 dark:bg-amber-950 px-4 py-2.5 font-bold text-amber-600 dark:text-amber-400 text-start text-xs sm:text-sm whitespace-nowrap border-r border-gray-200 dark:border-gray-700 shadow-[2px_0_4px_rgba(0,0,0,0.06)]">
-                MIN (All Range)
+                {t('page.reports.table.footer.min')}
               </td>
               {allSensors.map((s, i) => (
                 <td key={i} className="px-4 py-2.5 font-mono text-end font-bold text-amber-600 dark:text-amber-400 text-xs sm:text-sm">
@@ -234,7 +240,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
             {/* MAX Row */}
             <tr className="bg-rose-50/95 dark:bg-rose-950/90 backdrop-blur-[2px] border-b border-rose-100/50 dark:border-rose-900/30">
               <td className="sticky left-0 z-30 bg-rose-50 dark:bg-rose-950 px-4 py-2.5 font-bold text-rose-600 dark:text-rose-400 text-start text-xs sm:text-sm whitespace-nowrap border-r border-gray-200 dark:border-gray-700 shadow-[2px_0_4px_rgba(0,0,0,0.06)]">
-                MAX (All Range)
+                {t('page.reports.table.footer.max')}
               </td>
               {allSensors.map((s, i) => (
                 <td key={i} className="px-4 py-2.5 font-mono text-end font-bold text-rose-600 dark:text-rose-400 text-xs sm:text-sm">
@@ -246,7 +252,7 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
             {/* AVG Row */}
             <tr className="bg-blue-50/95 dark:bg-blue-950/90 backdrop-blur-[2px]">
               <td className="sticky left-0 z-30 bg-blue-50 dark:bg-blue-950 px-4 py-2.5 font-bold text-blue-600 dark:text-blue-400 text-start text-xs sm:text-sm whitespace-nowrap border-r border-gray-200 dark:border-gray-700 shadow-[2px_0_4px_rgba(0,0,0,0.06)]">
-                AVG (All Range)
+                {t('page.reports.table.footer.avg')}
               </td>
               {allSensors.map((s, i) => {
                 const avgVal = s.statistics?.avg;
@@ -278,8 +284,8 @@ export const ReportTable = memo(({ dateRange, customColors, initialData }: Repor
           setCurrentPage(1);
         }}
         rowPerPageText={{
-          display: 'Rows per page:',
-          row: '[cr] of [tr]',
+          display: t('page.reports.table.row_per_page.display'),
+          row: t('page.reports.table.row_per_page.row'),
         }}
       />
     </div>

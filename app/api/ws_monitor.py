@@ -67,12 +67,14 @@ def _get_network_stats() -> dict:
 
 
 def _get_docker_stats() -> dict:
-    """Get Docker container info via the Docker socket.
+    """Get Docker container info via Docker SDK, Unix socket, or CLI fallback.
 
-    Falls back gracefully if the Docker SDK is not installed
-    or the socket is not accessible.
+    Falls back gracefully across multiple methods so container metrics
+    work reliably in Docker Desktop (Windows), Docker on Linux, or standalone mode.
     """
     instances = []
+
+    # 1. Try Docker SDK
     try:
         import docker
         client = docker.from_env()
@@ -83,9 +85,89 @@ def _get_docker_stats() -> dict:
                 "status": "ok" if c.status == "running" else "error",
                 "queues": {},
             })
-    except Exception:
-        # Docker SDK not installed or socket not available — silent fallback
-        pass
+        if instances:
+            return {
+                "app_count": len(instances),
+                "instances": instances,
+            }
+    except Exception as e:
+        logger.debug("Docker SDK query failed: %s", e)
+
+    # 2. Try Unix domain socket directly (/var/run/docker.sock)
+    try:
+        if os.path.exists("/var/run/docker.sock"):
+            import socket
+            s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            s.settimeout(2.0)
+            s.connect("/var/run/docker.sock")
+            s.sendall(b"GET /containers/json HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
+            response = b""
+            while True:
+                chunk = s.recv(4096)
+                if not chunk:
+                    break
+                response += chunk
+            s.close()
+            parts = response.split(b"\r\n\r\n", 1)
+            if len(parts) == 2:
+                body = parts[1]
+                if b"Transfer-Encoding: chunked" in parts[0]:
+                    chunks = []
+                    lines = body.split(b"\r\n")
+                    i = 0
+                    while i < len(lines):
+                        size_str = lines[i].split(b";")[0].strip()
+                        if not size_str:
+                            i += 1
+                            continue
+                        try:
+                            size = int(size_str, 16)
+                        except ValueError:
+                            break
+                        if size == 0:
+                            break
+                        i += 1
+                        if i < len(lines):
+                            chunks.append(lines[i][:size])
+                        i += 1
+                    body = b"".join(chunks)
+                containers = json.loads(body.decode("utf-8"))
+                for c in containers:
+                    names = c.get("Names", [])
+                    name = names[0].lstrip("/") if names else c.get("Id", "")[:12]
+                    state = c.get("State", "")
+                    instances.append({
+                        "name": name,
+                        "status": "ok" if state == "running" else "error",
+                        "queues": {},
+                    })
+                if instances:
+                    return {
+                        "app_count": len(instances),
+                        "instances": instances,
+                    }
+    except Exception as e:
+        logger.debug("Unix socket Docker query failed: %s", e)
+
+    # 3. Try subprocess docker CLI fallback
+    try:
+        res = subprocess.run(
+            ["docker", "ps", "--format", "{{.Names}}|{{.State}}"],
+            capture_output=True,
+            text=True,
+            timeout=3,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            for line in res.stdout.strip().splitlines():
+                if "|" in line:
+                    name, state = line.split("|", 1)
+                    instances.append({
+                        "name": name.strip(),
+                        "status": "ok" if state.strip() == "running" else "error",
+                        "queues": {},
+                    })
+    except Exception as e:
+        logger.debug("Subprocess Docker query failed: %s", e)
 
     return {
         "app_count": len(instances),

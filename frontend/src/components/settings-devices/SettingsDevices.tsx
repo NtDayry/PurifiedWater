@@ -177,9 +177,9 @@ export default function SettingsDevices() {
     } catch (err) {
       parseFetchError({
         error: err,
-        onUnauthorized: () => swal.error({ title: 'Unauthorised', message: 'Please log in again.' }),
-        onForbidden:    () => swal.error({ title: 'Forbidden',     message: 'You do not have permission to view sensor configs.' }),
-        onOtherError:   () => swal.error({ title: 'Error',         message: 'Failed to load sensor configurations.' }),
+        onUnauthorized: () => swal.error({ title: t('page.settings_devices.swal.unauthorized_title'), message: t('page.settings_devices.swal.unauthorized_msg') }),
+        onForbidden:    () => swal.error({ title: t('page.settings_devices.swal.forbidden_title'),     message: t('page.settings_devices.swal.forbidden_msg') }),
+        onOtherError:   () => swal.error({ title: t('page.settings_devices.swal.error_title'),         message: t('page.settings_devices.swal.error_msg') }),
       });
     } finally {
       if (showLoading) setFetching(false);

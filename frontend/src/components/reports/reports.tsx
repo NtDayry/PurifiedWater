@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SensorReportResponse } from '@_types/sensor';
 import Select from '@/components/form/Select';
 import { useLoading } from '@/context/LoadingContext';
@@ -25,6 +26,7 @@ dayjs.extend(isoWeek);
 // Main Component
 // ==========================
 export default function Reports() {
+  const { t } = useTranslation();
   const canExport = useHasPermission([PermissionConfig.Modules.Reports.actions.exportData]);
   const { setLoading } = useLoading();
   const [sensorData, setSensorData] = useState<SensorReportResponse>();
@@ -34,6 +36,15 @@ export default function Reports() {
 
   // Zustand Store for filter & viewMode persistence (default viewMode: table)
   const { viewMode, dateRange, setViewMode, handleDateRangeChange } = useReportsStore();
+
+  const periodOptions = useMemo(
+    () =>
+      PERIOD_OPTIONS.map((opt) => ({
+        ...opt,
+        label: t(`page.reports.period_options.${opt.value}`, { defaultValue: opt.label }),
+      })),
+    [t]
+  );
 
   const [customColors, setCustomColors] = useState<Record<string, string>>(() => {
     try {
@@ -194,13 +205,13 @@ export default function Reports() {
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <DatePicker
               id="start_time"
-              label="From"
+              label={t('page.reports.filter.from')}
               value={dateUtils.formatCompactDate(dateRange?.display.start_time || '')}
               onChange={handleDateRangeChange}
             />
             <DatePicker
               id="stop_time"
-              label="To"
+              label={t('page.reports.filter.to')}
               value={dateUtils.formatCompactDate(dateRange?.display.stop_time || '')}
               options={{
                 maxDate: dayjs().endOf('day').toISOString(),
@@ -209,9 +220,9 @@ export default function Reports() {
             />
             <Select
               id="aggregate"
-              label="Period time"
+              label={t('page.reports.filter.period')}
               className="w-full"
-              options={PERIOD_OPTIONS}
+              options={periodOptions}
               defaultValue={dateRange.aggregate}
               onChange={handleDateRangeChange}
             />
@@ -231,7 +242,7 @@ export default function Reports() {
                 }`}
               >
                 <TableIcon className="w-4 h-4" />
-                Combined Table
+                {t('page.reports.toolbar.combined_table')}
               </button>
               <button
                 type="button"
@@ -243,7 +254,7 @@ export default function Reports() {
                 }`}
               >
                 <PerformanceGraphIcon className="w-4 h-4" />
-                Charts
+                {t('page.reports.toolbar.charts')}
               </button>
 
               {/* Export Group */}
@@ -256,7 +267,7 @@ export default function Reports() {
                     type="button"
                     onClick={handleExportCSV}
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950/30 dark:hover:text-emerald-400 transition-all"
-                    title="Export CSV"
+                    title={t('page.reports.toolbar.export_csv')}
                   >
                     <CsvIcon className="w-4 h-4" />
                     CSV
@@ -265,7 +276,7 @@ export default function Reports() {
                     type="button"
                     onClick={handleExportExcel}
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/30 dark:hover:text-blue-400 transition-all"
-                    title="Export Excel"
+                    title={t('page.reports.toolbar.export_excel')}
                   >
                     <ExcelIcon className="w-4 h-4" />
                     Excel
@@ -293,7 +304,7 @@ export default function Reports() {
         )
       ) : (
         <div className="h-[350px] flex items-center justify-center p-12 bg-white rounded-xl border dark:bg-gray-800/[0.3] dark:border-gray-700">
-          <p className="text-gray-600 text-xl">Waiting for data...</p>
+          <p className="text-gray-600 text-xl">{t('page.reports.waiting_for_data')}</p>
         </div>
       )}
     </div>

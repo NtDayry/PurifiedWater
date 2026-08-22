@@ -83,7 +83,7 @@ export const WaterTank = ({
         ctx.setLineDash([]);
         // tick label (20%, 40%, 60%, 80%)
         const pct = Math.round(100 - i * 20);
-        ctx.font = `12px 'DM Mono', monospace`;
+        ctx.font = `${Math.max(12, Math.round(W * 0.034))}px 'DM Mono', monospace`;
         ctx.textAlign = 'right';
         ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(71, 71, 71, 0.7)';
         ctx.fillText(`${pct}%`, W - 6, gy - 2);
@@ -100,7 +100,7 @@ export const WaterTank = ({
         ctx.lineTo(W - 4, yMin);
         ctx.stroke();
         ctx.setLineDash([]);
-        ctx.font = 'bold 12px "DM Mono", monospace';
+        ctx.font = `bold ${Math.max(12, Math.round(W * 0.034))}px "DM Mono", monospace`;
         ctx.textAlign = 'left';
         ctx.fillStyle = `${isDark ? '#fce300' : '#ff7b00'}`;
         ctx.fillText(`MIN (${Math.round(minLevel)} ${unit})`, 5, yMin - 4);
@@ -188,7 +188,7 @@ export const WaterTank = ({
       ctx.stroke();
 
       // Level % center text
-      ctx.font = `bold 34px 'DM Mono', monospace`;
+      ctx.font = `bold ${Math.max(34, Math.round(W * 0.11))}px 'DM Mono', monospace`;
       ctx.textAlign = 'center';
       ctx.fillStyle = isDark ? 'rgba(255,255,255,0.92)' : 'rgba(0, 60, 255, 0.79)';
       ctx.shadowColor = isDark ? 'rgba(0,0,0,0.9)' : 'rgba(255,255,255,0.9)';
@@ -201,7 +201,7 @@ export const WaterTank = ({
 
     draw();
     return () => cancelAnimationFrame(animRef.current);
-  }, [level, color, isDark, minLevel, maxLevel, width, height, capacity, unit]);
+  }, [level, color, isDark, minLevel, maxLevel, width, height, capacity, unit, loading]);
 
   const isWarning = !loading && (level < minLevel || level > maxLevel);
 
@@ -256,8 +256,8 @@ export const WaterTank = ({
             </div>
           )}
         </div> 
-          <div className="text-xl text-center dark:text-white">
-            {capacity && <div style={{marginTop: 1, color }}>{Math.round(level)}/{Math.round(capacity)} Litre</div>}
+          <div className="text-center dark:text-white">
+            {capacity && <div style={{ marginTop: 1, color, fontSize: Math.max(20, Math.round(width * 0.07)), fontWeight: 800 }}>{Math.round(level)}/{Math.round(capacity)} Litre</div>}
           </div>
       </div>
     </div>

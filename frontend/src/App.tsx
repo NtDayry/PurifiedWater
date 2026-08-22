@@ -103,6 +103,14 @@ export default function App() {
               }
             />
             <Route
+              path={URL.HMI}
+              element={
+                <PermissionGuard permissionKeys={PermissionConfig.Routes.dashboard}>
+                  <Home />
+                </PermissionGuard>
+              }
+            />
+            <Route
               path="/reports"
               element={
                 <PermissionGuard permissionKeys={PermissionConfig.Routes.reports}>

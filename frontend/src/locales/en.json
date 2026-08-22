@@ -293,6 +293,63 @@
         "subtitle": "List of engineering team members who are available to provide support and maintain the system at all times"
       }
     },
+    "reports": {
+      "title": "Data Report",
+      "subtitle": "Detailed Information of Purified Water System",
+      "meta_title": "Water System Data Report",
+      "meta_description": "Water System Data Report",
+      "filter": {
+        "from": "From",
+        "to": "To",
+        "period": "Period time"
+      },
+      "period_options": {
+        "30m": "30 minute",
+        "1h": "1 hour",
+        "1d": "1 day",
+        "1mo": "1 month",
+        "1y": "1 year"
+      },
+      "toolbar": {
+        "combined_table": "Combined Table",
+        "charts": "Charts",
+        "export_csv": "Export CSV",
+        "export_excel": "Export Excel"
+      },
+      "waiting_for_data": "Waiting for data...",
+      "table": {
+        "loading_data": "Loading table data...",
+        "loading_page": "Loading page {{page}}...",
+        "no_data": "No data available for table view.",
+        "title": "Combined Sensor Data Table",
+        "subtitle": "Total sensors: {{sensors}} | Showing {{start}} – {{end}} of {{total}} entries",
+        "header": {
+          "timestamp": "Timestamp"
+        },
+        "footer": {
+          "min": "MIN (All Range)",
+          "max": "MAX (All Range)",
+          "avg": "AVG (All Range)"
+        },
+        "row_per_page": {
+          "display": "Rows per page:",
+          "row": "Showing [cr] of [tr] entries"
+        }
+      },
+      "charts": {
+        "live": "Live:",
+        "color_picker_title": "Custom Chart Color",
+        "color": "Color",
+        "chart_color": "Chart Color",
+        "reset": "Reset",
+        "custom_color": "Custom:",
+        "min": "min",
+        "max": "max",
+        "avg": "avg",
+        "show_details": "Show Details",
+        "hide_details": "Hide Details"
+      }
+    },
     "alarm_reports": {
       "title": "Alarm Data Report",
       "subtitle": "Filter, View, and Export Alarm & Alert Events",
@@ -368,6 +425,66 @@
     "settings_devices": {
       "title": "Device & Sensor Settings",
       "subtitle": "Configure signal scaling, unit decoding, and sensor alarm rules",
+      "ws": {
+        "connected": "WebSocket Live Stream Connected",
+        "disconnected": "WebSocket Disconnected"
+      },
+      "loading_sensor_configs": "Loading sensor configurations…",
+      "group": {
+        "move_up": "Move Group Up",
+        "move_down": "Move Group Down",
+        "save_all": "Save All"
+      },
+      "table": {
+        "header": {
+          "order": "Order",
+          "metric": "Metric",
+          "raw_value": "Raw Value",
+          "live_value": "Live Value",
+          "decode_type": "Decode Type",
+          "raw_min": "Raw Min",
+          "raw_max": "Raw Max",
+          "range_min": "Range Min",
+          "range_max": "Range Max",
+          "unit": "Unit",
+          "decimal_places": "Decimal Places",
+          "adjust_4_20ma": "Adjust 4-20mA",
+          "alarm_config": "Alarm Config"
+        },
+        "move_metric_up": "Move Metric Up",
+        "move_metric_down": "Move Metric Down",
+        "title_adjust": "Open Analog 4-20mA Calibration & Adjust Menu",
+        "btn_adjust": "Adjust",
+        "title_alarm": "Open Sensor Alarm Rule Configuration",
+        "btn_alarm": "Alarm",
+        "btn_save": "Save",
+        "btn_saving": "Saving"
+      },
+      "swal": {
+        "unauthorized_title": "Unauthorised",
+        "unauthorized_msg": "Please log in again.",
+        "forbidden_title": "Forbidden",
+        "forbidden_msg": "You do not have permission to view sensor configs.",
+        "error_title": "Error",
+        "error_msg": "Failed to load sensor configurations.",
+        "saved_row": "Saved — {{metric}}",
+        "forbidden_edit": "You do not have permission to edit sensor configs.",
+        "invalid_data_title": "Invalid data",
+        "invalid_data_msg": "Check the values and try again.",
+        "save_failed_title": "Save failed",
+        "save_failed_msg": "Could not save sensor configuration.",
+        "saved_calibration": "Saved calibration — {{label}}",
+        "invalid_calibration_msg": "Check the calibration values and try again.",
+        "save_calibration_failed_msg": "Could not save sensor calibration.",
+        "no_changes": "No changes to save",
+        "group_order_updated": "Group order updated",
+        "reorder_failed_title": "Reorder failed",
+        "reorder_failed_msg": "Failed to update group order.",
+        "reorder_unavailable_title": "Reorder unavailable",
+        "reorder_unavailable_msg": "Sensor registry entries not found for these metrics.",
+        "metric_order_updated": "Metric order updated",
+        "reorder_metric_failed_msg": "Failed to update metric order."
+      },
       "analog_modal": {
         "badge": "Analog 4-20mA Calibration",
         "tabs": {

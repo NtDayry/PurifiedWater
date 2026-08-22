@@ -19,6 +19,22 @@ from app.api.routes.auth import (
 from app.core.config import settings
 
 router = APIRouter(prefix="/users", tags=["users"])
+PROFILE_IMAGE_URL_PREFIX = "/static/profile"
+
+
+def _profile_image_url(filename: str) -> str:
+    return f"{PROFILE_IMAGE_URL_PREFIX}/{filename}"
+
+
+def _profile_image_file_path(profile_image: str | None) -> Path | None:
+    if not profile_image:
+        return None
+
+    clean_path = profile_image.split("?", 1)[0].replace("\\", "/")
+    if clean_path.startswith(f"{PROFILE_IMAGE_URL_PREFIX}/"):
+        return settings.UPLOAD_PROFILE_DIR / Path(clean_path).name
+
+    return Path(profile_image)
 
 
 def _user_audit_snapshot(user: User | None) -> dict | None:
@@ -421,12 +437,11 @@ async def update_my_profile(
             content = await profile_image.read()
             f.write(content)
 
-        if user.profile_image:
-            old_file = Path(user.profile_image)
-            if old_file.exists():
-                old_file.unlink()
+        old_file = _profile_image_file_path(user.profile_image)
+        if old_file and old_file.exists():
+            old_file.unlink()
 
-        user.profile_image = str(file_path)
+        user.profile_image = _profile_image_url(filename)
 
     # =========================
     # Update Other Fields
@@ -603,14 +618,12 @@ async def update_user(
             f.write(content)
 
         # delete old image
-        if user.profile_image:
-            old_file = Path(user.profile_image)
+        old_file = _profile_image_file_path(user.profile_image)
+        if old_file and old_file.exists():
+            old_file.unlink()
 
-            if old_file.exists():
-                old_file.unlink()
-
-        # save path
-        user.profile_image = str(file_path)
+        # save public path
+        user.profile_image = _profile_image_url(filename)
 
     # =========================
     # Authorization: ensure caller has permission for requested changes

@@ -7,6 +7,7 @@ import { URL } from '@/api';
 import { usePermissions } from '@/hooks/usePermission';
 import { PermissionConfig } from '@/config/permission.config';
 import { useAuthStore } from '@/store/auth';
+import { imagePath } from '@/components/utils/formatImagePath';
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function UserDropdown() {
       <button onClick={toggleDropdown} className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400">
         <span className="mr-3 overflow-hidden border dark:border-gray-800 rounded-full h-11 w-11">
           <img
-            src={auth.profileImage || '/polipharm.png'}
+            src={imagePath(auth.profileImage)}
             className="w-full h-full object-contain"
             alt="User"
             onError={(e) => {

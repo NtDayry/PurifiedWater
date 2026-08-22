@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SensorReportResponse } from '@_types/sensor';
 import type { AlertRule, SensorConfig } from '@/api';
 import Button from '../ui/button/Button';
@@ -13,6 +14,7 @@ import { sensorStore, getSensorColor, COLOR_PRESETS, sortGroupTree } from './rep
 // ==========================
 export const RealTimeValue = memo(
   ({ sensorKey, unit, color, decimal_places }: { sensorKey: string; unit: string; color: string; decimal_places: number }) => {
+    const { t } = useTranslation();
     const [, forceUpdate] = useState({});
 
     useEffect(() => {
@@ -36,7 +38,7 @@ export const RealTimeValue = memo(
           ></span>
           <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${hasValue ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
         </span>
-        <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Live:</span>
+        <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('page.reports.charts.live')}</span>
         <h3 className="text-sm sm:text-base font-bold tracking-tight" style={{ color: color ?? '#2b4aff' }}>
           {hasValue ? value.toFixed(decimal_places ?? 2) : '---'}{' '}
           <span className="text-xs sm:text-sm font-normal text-gray-500 dark:text-gray-400">{unit}</span>
@@ -52,6 +54,7 @@ RealTimeValue.displayName = 'RealTimeValue';
 // ==========================
 export const ColorPickerPopover = memo(
   ({ currentColor, onChange, onReset }: { currentColor: string; onChange: (color: string) => void; onReset: () => void }) => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -75,16 +78,16 @@ export const ColorPickerPopover = memo(
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1.5 px-2 py-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-          title="Custom Chart Color"
+          title={t('page.reports.charts.color_picker_title')}
         >
           <span className="w-3.5 h-3.5 rounded-full border border-white/50 shadow-sm" style={{ backgroundColor: currentColor }}></span>
-          <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">Color</span>
+          <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">{t('page.reports.charts.color')}</span>
         </button>
 
         {isOpen && (
           <div className="absolute right-0 mt-2 w-48 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 animate-fadeIn">
             <div className="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2 flex justify-between items-center">
-              <span>Chart Color</span>
+              <span>{t('page.reports.charts.chart_color')}</span>
               <button
                 type="button"
                 onClick={() => {
@@ -93,7 +96,7 @@ export const ColorPickerPopover = memo(
                 }}
                 className="text-[10px] text-gray-400 hover:text-brand-500 underline"
               >
-                Reset
+                {t('page.reports.charts.reset')}
               </button>
             </div>
             <div className="grid grid-cols-5 gap-1.5 mb-2.5">
@@ -113,7 +116,7 @@ export const ColorPickerPopover = memo(
               ))}
             </div>
             <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-700/60">
-              <span className="text-[11px] text-gray-500 dark:text-gray-400">Custom:</span>
+              <span className="text-[11px] text-gray-500 dark:text-gray-400">{t('page.reports.charts.custom_color')}</span>
               <input
                 type="color"
                 value={currentColor}
@@ -153,6 +156,7 @@ export const SensorGroupCard = memo(
     onColorReset: (sensorKey: string) => void;
     defaultOpen?: boolean;
   }) => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const renderGroup = (group: any) => {
@@ -203,13 +207,13 @@ export const SensorGroupCard = memo(
                             </div>
                             <div className="flex flex-wrap gap-3 mt-1">
                               <span className="text-xs sm:text-sm text-warning-500 font-semibold">
-                                min: {sensor.statistics?.min?.toFixed(sensor.decimal_places || 1) ?? '---'}
+                                {t('page.reports.charts.min')}: {sensor.statistics?.min?.toFixed(sensor.decimal_places || 1) ?? '---'}
                               </span>
                               <span className="text-xs sm:text-sm text-error-500 font-semibold">
-                                max: {sensor.statistics?.max?.toFixed(sensor.decimal_places || 1) ?? '---'}
+                                {t('page.reports.charts.max')}: {sensor.statistics?.max?.toFixed(sensor.decimal_places || 1) ?? '---'}
                               </span>
                               <span className="text-xs sm:text-sm text-blue-500 font-semibold">
-                                avg: {sensor.statistics?.avg?.toFixed(sensor.decimal_places || 1) ?? '---'}
+                                {t('page.reports.charts.avg')}: {sensor.statistics?.avg?.toFixed(sensor.decimal_places || 1) ?? '---'}
                               </span>
                             </div>
                           </div>
@@ -231,7 +235,7 @@ export const SensorGroupCard = memo(
         <div className="flex justify-between items-center">
           <SectionHeader title={group.group_name} subtitle={group.sub_group_name} accent="#818cf8" className="!mb-0" />
           <Button variant="link" size="sm" className="!text-gray-500" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? 'Hide Details' : 'Show Details'}
+            {isOpen ? t('page.reports.charts.hide_details') : t('page.reports.charts.show_details')}
             <ChevronDownIcon className={`ml-auto w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-500' : ''}`} />
           </Button>
         </div>

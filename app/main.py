@@ -65,6 +65,8 @@ app.include_router(api_router, prefix="/api")
 # Serve uploaded static files if directory exists
 if settings.UPLOAD_DIR.exists():
     app.mount("/static/uploads", StaticFiles(directory=str(settings.UPLOAD_DIR)), name="uploads")
+if settings.UPLOAD_PROFILE_DIR.exists():
+    app.mount("/static/profile", StaticFiles(directory=str(settings.UPLOAD_PROFILE_DIR)), name="profile_uploads")
 
 
 @app.get("/")

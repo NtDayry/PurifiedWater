@@ -6,6 +6,7 @@ import { SectionHeader, StatusBadge, MetricCard } from '@/components/ui/widget';
 import Gradient from '@/components/charts/gauge';
 import { useTheme } from '@/context/ThemeContext';
 import { useSidebar } from '@/context/SidebarContext';
+import { useFullScreen } from '@/context/FullScreenContext';
 import { API_URL, getSensorConfigs, getAlertRules, type AlertRule } from '@/api';
 
 const WS_HEARTBEAT_INTERVAL_MS = 10000;
@@ -13,9 +14,14 @@ const WS_STALE_TIMEOUT_MS = 25000;
 const WS_RECONNECT_BASE_DELAY_MS = 2000;
 const WS_RECONNECT_MAX_DELAY_MS = 30000;
 
-export default function Dashboard() {
+type DashboardProps = {
+  hmiMode?: boolean;
+};
+
+export default function Dashboard({ hmiMode = false }: DashboardProps) {
   const { theme } = useTheme();
   const { isMobile } = useSidebar();
+  const { fullScreen } = useFullScreen();
   const wsRef = useRef<WebSocket | null>(null);
   const heartbeatRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -26,7 +32,7 @@ export default function Dashboard() {
   const [scfgs, setScfgs] = useState<Record<string, Record<string, any>>>({});
   const [alertRulesMap, setAlertRulesMap] = useState<Record<string, Record<string, AlertRule>>>({});
   const [data, setData] = useState<SensorDashboardData>(INITIAL_SENSOR_DATA);
-
+  const [viewportHeight, setViewportHeight] = useState(() => window.innerHeight);
 
   // Fetch sensor configurations and alarm rules from backend
   const loadConfigs = useCallback(() => {
@@ -60,6 +66,16 @@ export default function Dashboard() {
     const interval = setInterval(loadConfigs, 3000);
     return () => clearInterval(interval);
   }, [loadConfigs]);
+
+  useEffect(() => {
+    if (!hmiMode) return;
+
+    const syncViewportHeight = () => setViewportHeight(window.innerHeight);
+    syncViewportHeight();
+    window.addEventListener('resize', syncViewportHeight);
+
+    return () => window.removeEventListener('resize', syncViewportHeight);
+  }, [hmiMode]);
 
   // WebSocket connection management
   useEffect(() => {
@@ -293,18 +309,33 @@ export default function Dashboard() {
     return 'normal';
   };
 
-
   if (!data) return null;
+
+  const isHmiActive = hmiMode && fullScreen;
+  const hmiScale = isHmiActive ? Math.min(1, Math.max(0.66, (viewportHeight - 56) / 940)) : 1;
+  const fit = (value: number) => Math.round(value * hmiScale);
+  const sectionCardClass = isHmiActive
+    ? 'rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-white/[0.03] xl:p-5'
+    : 'rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6';
+  const hmiLeftCardClass = `${sectionCardClass} flex h-full flex-col`;
+  const hmiTopCardClass = `${sectionCardClass} flex min-h-0 flex-1 flex-col`;
+  const hmiBottomCardClass = `${sectionCardClass} shrink-0`;
+  const innerCardPadding = isHmiActive ? `${fit(16)}px ${fit(14)}px` : '16px 14px';
+  const innerCardRadius = isHmiActive ? 16 : 14;
+  const metricGapClass = isHmiActive ? 'gap-3' : 'gap-2';
+  const tankWidth = isHmiActive ? (isMobile ? fit(260) : fit(500)) : isMobile ? 250 : 350;
+  const tankHeight = isHmiActive ? (isMobile ? fit(360) : fit(700)) : isMobile ? 400 : 560;
+  const gaugeSize = isHmiActive ? fit(205) : 180;
 
   return (
     <>
       {/* PW Tank */}
-      <div className="col-span-12 space-y-6 md:col-span-12 lg:col-span-4">
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <SectionHeader title="PW Tank" subtitle="Purified Water" accent="#22c55e" />
+      <div className={`col-span-12 md:col-span-12 ${isHmiActive ? 'h-full space-y-0 xl:col-span-5' : 'space-y-6 lg:col-span-4'}`}>
+        <div className={isHmiActive ? hmiLeftCardClass : sectionCardClass}>
+          <SectionHeader title="PW Tank" subtitle="Purified Water" accent="#22c55e" hmi={isHmiActive} />
 
           {/* Water Tank */}
-          <div className="flex flex-col items-center gap-4">
+          <div className={`flex flex-col items-center ${isHmiActive ? 'min-h-0 flex-1 justify-center gap-2' : 'gap-4'}`}>
             <WaterTank
               level={data?.values?.water_level ?? 0}
               loading={isSensorLoading('water_level')}
@@ -324,8 +355,8 @@ export default function Dashboard() {
                 2000
               }
               unit={getUnit('distribution_loop', 'water_level') || 'mm'}
-              width={isMobile ? 250 : 350}
-              height={isMobile ? 400 : 587}
+              width={tankWidth}
+              height={tankHeight}
               color="#0081fa"
               isDark={theme === 'dark'}
             />
@@ -333,7 +364,7 @@ export default function Dashboard() {
             <div className="w-full px-3">
               <div
                 style={{
-                  height: 8,
+                  height: isHmiActive ? fit(9) : 8,
                   background: `rgba(${false ? '255,255,255' : '0,0,0'},0.05)`,
                   borderRadius: 4,
                   overflow: 'hidden',
@@ -354,14 +385,14 @@ export default function Dashboard() {
                   />
                 )}
               </div>
-              <div className="flex justify-between text-xs font-medium text-gray-500 dark:text-gray-400">
-                <span style={{ fontSize: 12 }}>Empty</span>
-                <span style={{ fontSize: 12 }}>Full</span>
+              <div className="flex justify-between font-medium text-gray-500 dark:text-gray-400">
+                <span style={{ fontSize: isHmiActive ? fit(16) : 12 }}>Empty</span>
+                <span style={{ fontSize: isHmiActive ? fit(16) : 12 }}>Full</span>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-between grid-cols-1 md:grid-cols-2 border-gray-800 pt-5">
+          <div className={`flex justify-between grid-cols-1 md:grid-cols-2 border-gray-800 ${isHmiActive ? 'shrink-0 gap-3 pt-3' : 'pt-5'}`}>
             <MetricCard
               label="Water Meter"
               value={data?.values?.water_meter ?? 0}
@@ -370,6 +401,7 @@ export default function Dashboard() {
               decimals={getDecimals('water_flow', 'water_meter', 2)}
               className="text-sky-500 dark:text-sky-400"
               small
+              hmi={isHmiActive}
             />
             <MetricCard
               label="Flow Rate"
@@ -379,36 +411,38 @@ export default function Dashboard() {
               decimals={getDecimals('water_flow', 'flow_rate', 2)}
               className="text-sky-500 dark:text-sky-400"
               small
+              hmi={isHmiActive}
             />
           </div>
         </div>
       </div>
 
       {/* Distribution Loop & RO Systems */}
-      <div className="col-span-12 space-y-5 md:col-span-12 lg:col-span-8">
+      <div className={`col-span-12 md:col-span-12 ${isHmiActive ? 'flex h-full min-h-0 flex-col gap-4 xl:col-span-7' : 'space-y-5 lg:col-span-8'}`}>
         {/* Distribution Loop */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <SectionHeader title="Distribution Loop" subtitle="Circulation & Quality" accent="#f43f5e" />
-          <div className="grid grid-cols-1 gap-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <div className={isHmiActive ? hmiTopCardClass : sectionCardClass}>
+          <SectionHeader title="Distribution Loop" subtitle="Circulation & Quality" accent="#f43f5e" hmi={isHmiActive} />
+          <div className={`grid grid-cols-1 ${isHmiActive ? 'min-h-0 flex-1 content-start gap-4' : 'gap-5'}`}>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isHmiActive ? 'gap-4' : 'gap-5'}`}>
               {/* UV */}
               <div
                 className="bg-violet-50 dark:bg-violet-300/[0.05] border-gray-800"
                 style={{
                   border: '1px solid rgba(121, 3, 255, 0.47)',
-                  borderRadius: 14,
-                  padding: '16px 14px',
+                  borderRadius: innerCardRadius,
+                  padding: innerCardPadding,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 12,
+                  gap: isHmiActive ? fit(12) : 12,
                   alignItems: 'center',
                 }}
               >
                 <div className="flex justify-between items-start w-full">
-                  <span style={{ fontSize: 16, fontWeight: 800, color: '#603ff4' }}>UV Index</span>
+                  <span style={{ fontSize: isHmiActive ? fit(19) : 16, fontWeight: 800, color: '#603ff4' }}>UV Index</span>
                   <StatusBadge
                     status={compareWithConfig('distribution_loop', 'uv3')}
                     loading={isSensorLoading('uv3')}
+                    hmi={isHmiActive}
                   />
                 </div>
                 <Gradient
@@ -418,6 +452,7 @@ export default function Dashboard() {
                   label="UV Index"
                   color="#7050fd"
                   unit={getUnit('distribution_loop', 'uv3')}
+                  size={gaugeSize}
                 />
               </div>
 
@@ -426,21 +461,22 @@ export default function Dashboard() {
                 className="bg-yellow-50 dark:bg-yellow-400/10 border-gray-800"
                 style={{
                   border: '1px solid rgba(251, 190, 36, 0.72)',
-                  borderRadius: 14,
-                  padding: '16px 14px',
+                  borderRadius: innerCardRadius,
+                  padding: innerCardPadding,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 10,
+                  gap: isHmiActive ? fit(10) : 10,
                 }}
               >
                 <div className="flex justify-between items-start w-full">
-                  <span style={{ fontSize: 16, fontWeight: 800, color: '#fcb900' }}>TOC</span>
+                  <span style={{ fontSize: isHmiActive ? fit(19) : 16, fontWeight: 800, color: '#fcb900' }}>TOC</span>
                   <StatusBadge
                     status={compareWithConfig('distribution_loop', 'toc')}
                     loading={isSensorLoading('toc')}
+                    hmi={isHmiActive}
                   />
                 </div>
-                <div className="flex flex-row justify-between gap-2 md:flex-col sm:justify-start">
+                <div className={`flex flex-row justify-between md:flex-col sm:justify-start ${metricGapClass}`}>
                   <MetricCard
                     label="TOC Value"
                     value={data?.values?.toc ?? 0}
@@ -449,6 +485,7 @@ export default function Dashboard() {
                     decimals={getDecimals('distribution_loop', 'toc', 2)}
                     className="text-yellow-500 dark:text-yellow-400"
                     small
+                    hmi={isHmiActive}
                   />
                   <MetricCard
                     label="Temperature"
@@ -458,6 +495,7 @@ export default function Dashboard() {
                     decimals={getDecimals('distribution_loop', 'toc_temp', 2)}
                     className="text-orange-500 dark:text-orange-400"
                     small
+                    hmi={isHmiActive}
                   />
                 </div>
               </div>
@@ -467,21 +505,22 @@ export default function Dashboard() {
                 className="bg-sky-100 dark:bg-sky-400/10"
                 style={{
                   border: '1px solid rgba(16, 216, 247, 0.43)',
-                  borderRadius: 14,
-                  padding: '16px 14px',
+                  borderRadius: innerCardRadius,
+                  padding: innerCardPadding,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 10,
+                  gap: isHmiActive ? fit(10) : 10,
                 }}
               >
                 <div className="flex justify-between items-start w-full">
-                  <span style={{ fontSize: 16, fontWeight: 800, color: '#22d3ee' }}>Conductivity</span>
+                  <span style={{ fontSize: isHmiActive ? fit(19) : 16, fontWeight: 800, color: '#22d3ee' }}>Conductivity</span>
                   <StatusBadge
                     status={compareWithConfig('distribution_loop', 'dis_loop_conduct')}
                     loading={isSensorLoading('dis_loop_conduct')}
+                    hmi={isHmiActive}
                   />
                 </div>
-                <div className="flex flex-row justify-between gap-2 md:flex-col sm:justify-start">
+                <div className={`flex flex-row justify-between md:flex-col sm:justify-start ${metricGapClass}`}>
                   <MetricCard
                     label="Conductivity"
                     value={data?.values?.dis_loop_conduct ?? 0}
@@ -490,6 +529,7 @@ export default function Dashboard() {
                     decimals={getDecimals('distribution_loop', 'dis_loop_conduct', 2)}
                     className="text-sky-500 dark:text-sky-400"
                     small
+                    hmi={isHmiActive}
                   />
                   <MetricCard
                     label="Temperature"
@@ -499,19 +539,20 @@ export default function Dashboard() {
                     decimals={getDecimals('distribution_loop', 'dis_loop_temp', 2)}
                     className="text-orange-500 dark:text-orange-400"
                     small
+                    hmi={isHmiActive}
                   />
                 </div>
               </div>
             </div>
 
             {/* Flow Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${isHmiActive ? 'gap-4' : 'gap-5'}`}>
               <div
                 className="bg-sky-50 dark:bg-sky-300/10 border-gray-800"
                 style={{
                   border: '1px solid rgba(63, 81, 244, 0.28)',
-                  borderRadius: 14,
-                  padding: '16px 14px',
+                  borderRadius: innerCardRadius,
+                  padding: innerCardPadding,
                 }}
               >
                 <div className="flex justify-between items-start w-full">
@@ -523,10 +564,12 @@ export default function Dashboard() {
                     decimals={getDecimals('flow_metrics', 'instant_flow_rate', 2)}
                     className="text-sky-500 dark:text-sky-400"
                     small
+                    hmi={isHmiActive}
                   />
                   <StatusBadge
                     status={compareWithConfig('flow_metrics', 'instant_flow_rate')}
                     loading={isSensorLoading('instant_flow_rate')}
+                    hmi={isHmiActive}
                   />
                 </div>
               </div>
@@ -534,8 +577,8 @@ export default function Dashboard() {
                 className="bg-sky-50 dark:bg-sky-300/10 border-gray-800"
                 style={{
                   border: '1px solid rgba(63, 81, 244, 0.28)',
-                  borderRadius: 14,
-                  padding: '16px 14px',
+                  borderRadius: innerCardRadius,
+                  padding: innerCardPadding,
                 }}
               >
                 <div className="flex justify-between items-start w-full">
@@ -547,10 +590,12 @@ export default function Dashboard() {
                     decimals={getDecimals('flow_metrics', 'fluid_velocity', 2)}
                     className="text-sky-500 dark:text-sky-400"
                     small
+                    hmi={isHmiActive}
                   />
                   <StatusBadge
                     status={compareWithConfig('flow_metrics', 'fluid_velocity')}
                     loading={isSensorLoading('fluid_velocity')}
+                    hmi={isHmiActive}
                   />
                 </div>
               </div>
@@ -559,9 +604,9 @@ export default function Dashboard() {
         </div>
 
         {/* RO System */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <SectionHeader title="RO System" subtitle="Reverse Osmosis + EDI" accent="#818cf8" />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 16 }}>
+        <div className={isHmiActive ? hmiBottomCardClass : sectionCardClass}>
+          <SectionHeader title="RO System" subtitle="Reverse Osmosis + EDI" accent="#818cf8" hmi={isHmiActive} />
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit,minmax(${isHmiActive ? fit(180) : 180}px,1fr))`, gap: isHmiActive ? fit(14) : 16 }}>
             {[
               {
                 name: 'RO 1',
@@ -596,23 +641,24 @@ export default function Dashboard() {
                 className="bg-violet-50 dark:bg-violet-200/10 border-gray-800"
                 style={{
                   border: `1px solid #a78bfa44`,
-                  borderRadius: 14,
-                  padding: '20px 16px',
+                  borderRadius: innerCardRadius,
+                  padding: isHmiActive ? `${fit(14)}px ${fit(12)}px` : '20px 16px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 14,
+                  gap: isHmiActive ? fit(12) : 14,
                 }}
               >
                 <div className="flex justify-between items-start w-full">
-                  <span className="text-violet-500 dark:text-violet-400" style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.01em' }}>
+                  <span className="text-violet-500 dark:text-violet-400" style={{ fontSize: isHmiActive ? fit(20) : 18, fontWeight: 800, letterSpacing: '0em' }}>
                     {label}
                   </span>
                   <StatusBadge
                     status={compareWithConfig(gKey, sKeyConduct)}
                     loading={isSensorLoading(sKeyConduct)}
+                    hmi={isHmiActive}
                   />
                 </div>
-                <div className="flex flex-row justify-between gap-2 md:flex-col sm:justify-start">
+                <div className={`flex flex-row justify-between md:flex-col sm:justify-start ${metricGapClass}`}>
                   <MetricCard
                     label="Conductivity"
                     value={conductVal}
@@ -621,6 +667,7 @@ export default function Dashboard() {
                     decimals={getDecimals(gKey, sKeyConduct, 2)}
                     className="text-violet-500 dark:text-violet-400"
                     small
+                    hmi={isHmiActive}
                   />
                   <MetricCard
                     label="Temperature"
@@ -630,6 +677,7 @@ export default function Dashboard() {
                     decimals={getDecimals(gKey, sKeyTemp, 2)}
                     className="text-orange-500 dark:text-orange-400"
                     small
+                    hmi={isHmiActive}
                   />
                 </div>
               </div>

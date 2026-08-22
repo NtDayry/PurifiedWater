@@ -1,5 +1,6 @@
 export const URL = {
   HOME: '/',
+  HMI: '/hmi',
   INSPECTION_LISTS: '/inspection-lists',
   REGISTER: '/register',
   LOGIN: '/login',
