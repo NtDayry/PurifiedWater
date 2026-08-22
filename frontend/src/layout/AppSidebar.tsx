@@ -34,7 +34,12 @@ type NavItem = {
   }[];
 };
 
-const AppSidebar: React.FC = () => {
+type AppSidebarProps = {
+  presentation?: 'default' | 'floating';
+  onNavigate?: () => void;
+};
+
+const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNavigate }) => {
   const { t } = useTranslation();
   const { isExpanded, isMobileOpen, toggleMobileSidebar } = useSidebar();
   const location = useLocation();
@@ -157,6 +162,11 @@ const AppSidebar: React.FC = () => {
     });
   };
 
+  const handleNavigate = () => {
+    if (isMobileOpen) toggleMobileSidebar();
+    onNavigate?.();
+  };
+
   const renderMenuItems = (items: NavItem[], menuType: 'main' | 'others') => (
     <ul className="flex flex-col gap-3">
       {items.map((nav, index) => {
@@ -215,7 +225,7 @@ const AppSidebar: React.FC = () => {
                           <Link
                             to={subItem.path}
                             replace={subItem.replace}
-                            onClick={() => isMobileOpen && toggleMobileSidebar()}
+                            onClick={handleNavigate}
                             className={`menu-dropdown-item ${isActive(subItem.path) ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'}`}
                           >
                             <span className="size-5">{subItem.icon}</span>
@@ -248,7 +258,7 @@ const AppSidebar: React.FC = () => {
                 <Link
                   to={nav.path}
                   replace={nav.replace}
-                  onClick={() => isMobileOpen && toggleMobileSidebar()}
+                  onClick={handleNavigate}
                   className={`menu-item group ps-6  ${!isExpanded ? 'lg:justify-center' : 'lg:justify-start'} ${isActive(nav.path) ? 'menu-item-active' : 'menu-item-inactive'}`}
                 >
                   <span className={`menu-item-icon-size ${isActive(nav.path) ? 'menu-item-icon-active' : 'menu-item-icon-inactive'}`}>
@@ -273,10 +283,9 @@ const AppSidebar: React.FC = () => {
 
   return (
     <aside
-      className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-11 border-r border-gray-200 
+      className={`fixed ${presentation === 'floating' ? 'mt-0 shadow-2xl' : 'mt-16 lg:mt-0'} flex flex-col top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-11 border-r border-gray-200 
         ${isExpanded || isMobileOpen ? 'w-[320px]' : 'w-[90px]'}
-        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0`}
+        ${presentation === 'floating' ? 'translate-x-0' : isMobileOpen ? 'translate-x-0 lg:translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       onMouseEnter={() => !isExpanded}
     >
       <div className={`py-8 flex ${!isExpanded ? 'lg:justify-center' : 'justify-start'}`}>

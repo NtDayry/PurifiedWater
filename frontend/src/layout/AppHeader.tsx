@@ -7,10 +7,16 @@ import { FullscreenToggleButton } from '@/components/common/FullscreenToggleButt
 // import NotificationDropdown from '@/components/header/NotificationDropdown';
 import { LanguageToggleButton } from '@/components/common/LanguageToggleButton';
 import UserDropdown from '@/components/header/UserDropdown';
+import { MonitorCog } from 'lucide-react';
 
 const PROJECT_NAME = import.meta.env.VITE_PROJECT_NAME;
 
-const AppHeader: React.FC = () => {
+type AppHeaderProps = {
+  showHmiButton?: boolean;
+  onEnterHmi?: () => void;
+};
+
+const AppHeader: React.FC<AppHeaderProps> = ({ showHmiButton = false, onEnterHmi }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
@@ -99,6 +105,17 @@ const AppHeader: React.FC = () => {
             } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
         >
           <div className="flex items-center gap-2 2xsm:gap-3">
+            {showHmiButton && (
+              <button
+                type="button"
+                onClick={onEnterHmi}
+                className="relative flex h-11 items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-4 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                title="Open HMI display"
+              >
+                <MonitorCog className="h-5 w-5" />
+                <span className="hidden sm:inline">HMI</span>
+              </button>
+            )}
             {/* <!-- Dark Mode Toggler --> */}
             <FullscreenToggleButton />
             {/* <!-- Dark Mode Toggler --> */}
