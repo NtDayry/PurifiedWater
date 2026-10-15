@@ -48,6 +48,8 @@ class Settings(BaseSettings):
     STORAGE_DIR: Path = Path("storage")
     UPLOAD_DIR: Path = Path("storage/uploads")
     UPLOAD_PROFILE_DIR: Path = Path("storage/profile")
+    SUPPORT_TEAM_DIR: Path = Path("storage/support-team")
+    BACKUP_DIR: Path = Path("storage/backups")
 
     # =========================================
     # Redis Configuration
@@ -129,3 +131,5 @@ settings = Settings()
 settings.STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 settings.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 settings.UPLOAD_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+settings.SUPPORT_TEAM_DIR.mkdir(parents=True, exist_ok=True)
+settings.BACKUP_DIR.mkdir(parents=True, exist_ok=True)

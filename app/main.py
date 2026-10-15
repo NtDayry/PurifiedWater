@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from contextlib import asynccontextmanager
 
@@ -28,7 +29,18 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"Failed to initialize database: {e}", exc_info=True)
 
+    # Start backup scheduler background worker
+    from app.services.backup_scheduler import backup_scheduler_worker
+    backup_task = asyncio.create_task(backup_scheduler_worker())
+
     yield
+
+    # Cancel backup scheduler on shutdown
+    backup_task.cancel()
+    try:
+        await backup_task
+    except asyncio.CancelledError:
+        pass
 
     logger.info("Application shutting down...")
 
@@ -52,12 +64,16 @@ app.add_middleware(
 
 from app.api.ws_sensor import router as ws_sensor_router
 from app.api.ws_monitor import router as ws_monitor_router
+from app.websocket.backup_ws import router as ws_backup_router
 
 # Include WebSocket sensor endpoints at root level (/ws/sensor-data & /ws/sensor-ingest)
 app.include_router(ws_sensor_router)
 
 # Include system monitor WebSocket endpoint at root level (/ws/monitor)
 app.include_router(ws_monitor_router)
+
+# Include backup & restore WebSocket endpoint at root level (/ws/backup)
+app.include_router(ws_backup_router)
 
 # Include main API router
 app.include_router(api_router, prefix="/api")
@@ -67,6 +83,8 @@ if settings.UPLOAD_DIR.exists():
     app.mount("/static/uploads", StaticFiles(directory=str(settings.UPLOAD_DIR)), name="uploads")
 if settings.UPLOAD_PROFILE_DIR.exists():
     app.mount("/static/profile", StaticFiles(directory=str(settings.UPLOAD_PROFILE_DIR)), name="profile_uploads")
+if settings.SUPPORT_TEAM_DIR.exists():
+    app.mount("/storage/support-team", StaticFiles(directory=str(settings.SUPPORT_TEAM_DIR)), name="support_team_storage")
 
 
 @app.get("/")
