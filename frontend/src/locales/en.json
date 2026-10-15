@@ -1,4 +1,30 @@
 {
+  "swal": {
+    "success": {
+      "title": "Success!",
+      "text": "Operation completed successfully"
+    },
+    "error": {
+      "title": "Error occurred",
+      "text": "Something went wrong. Please try again"
+    },
+    "warning": {
+      "title": "Warning",
+      "text": "Please double-check the information"
+    },
+    "confirm": {
+      "title": "Confirm Action",
+      "text": "Are you sure?"
+    },
+    "toast": {
+      "success_title": "Operation completed"
+    },
+    "buttons": {
+      "ok": "OK",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  },
   "header": {
     "dropdown": {
       "role_title": "Role",
@@ -160,7 +186,71 @@
         "empty": {
           "title": "Items not found",
           "subtitle": "Try modifying your search conditions or adding a new data."
+        },
+        "no_permission": "** Unauthorized **",
+        "tooltip": {
+          "edit_role": "Edit user permissions",
+          "no_permission_role": "No permission to edit user permissions",
+          "edit_status": "Edit user status",
+          "no_permission_status": "No permission to edit user status",
+          "reset_password": "Reset password",
+          "reset_attempts": "Reset Attempts",
+          "edit_user": "Edit user information",
+          "delete_user": "Delete user"
         }
+      },
+      "toast": {
+        "no_permission_reset_password": "You do not have permission to reset password",
+        "no_permission_reset_attempts": "You do not have permission to reset login attempts",
+        "no_permission_edit_status": "You do not have permission to edit user status",
+        "no_permission_edit_role": "You do not have permission to edit user permissions",
+        "no_permission_edit_user": "You do not have permission to edit user information",
+        "no_permission_delete_user": "You do not have permission to delete user",
+        "reset_password_success": "Password reset successfully",
+        "new_password_text": "The new password for [fullname] is: [password]",
+        "reset_password_failed": "Unable to reset password!",
+        "reset_attempts_success": "Sign in attempts reset successfully",
+        "reset_attempts_failed": "Unable to reset Sign in attempts!",
+        "edit_status_success": "User status changed successfully",
+        "edit_status_failed": "Unable to change user status!",
+        "edit_role_success": "User permissions changed successfully",
+        "edit_role_failed": "Unable to change user permissions!",
+        "delete_user_failed": "Unable to delete user!"
+      },
+      "dialog": {
+        "reset_password": {
+          "title": "Reset Password",
+          "text": "Do you want to reset the password for [fullname]?",
+          "confirm": "Confirm!",
+          "cancel": "Cancel"
+        },
+        "reset_attempts": {
+          "title": "Reset Sign In Attempts",
+          "text": "Do you want to reset Sign in attempts for [fullname]?"
+        },
+        "edit_status": {
+          "title": "Select User Status",
+          "text": "Change status of [fullname] from [status]",
+          "active": "Active (Allowed)",
+          "pending": "Pending (Awaiting action)",
+          "blocked": "Blocked (Suspend usage)",
+          "cancel": "Cancel"
+        },
+        "edit_role": {
+          "title": "Select User Role",
+          "text": "Change permissions of [fullname] from [role]",
+          "cancel": "Cancel"
+        },
+        "delete_user": {
+          "title": "Confirm User Deletion",
+          "text": "Account: [username] ([fullname])",
+          "confirm": "Confirm!",
+          "cancel": "Cancel"
+        }
+      },
+      "validation": {
+        "alpha_space": "Only Thai and English letters are allowed, no spaces",
+        "username_allowed": "Only a-z A-Z 0-9 and . _ - are allowed"
       }
     },
     "users_profile": {
@@ -565,7 +655,7 @@
           "bar_low": "LOW",
           "bar_normal": "NORMAL",
           "bar_high": "HIGH",
-          "trigger_delay_label": "Trigger Delay / Sustained Time",
+          "trigger_delay_label": "Trigger Delay / Sustained Time( period before alert is triggered )",
           "delay_instant": "Instant (Immediately at 0s)",
           "delay_30s": "30 Seconds",
           "delay_1m": "1 Minute",

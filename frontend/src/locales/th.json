@@ -1,4 +1,30 @@
 {
+  "swal": {
+    "success": {
+      "title": "สำเร็จ!",
+      "text": "ดำเนินการเสร็จสิ้น"
+    },
+    "error": {
+      "title": "เกิดข้อผิดพลาด",
+      "text": "มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง"
+    },
+    "warning": {
+      "title": "คำเตือน",
+      "text": "กรุณาตรวจสอบข้อมูลอีกครั้ง"
+    },
+    "confirm": {
+      "title": "ยืนยันการดำเนินการ",
+      "text": "คุณแน่ใจหรือไม่?"
+    },
+    "toast": {
+      "success_title": "ดำเนินการเรียบร้อยแล้ว"
+    },
+    "buttons": {
+      "ok": "ตกลง",
+      "confirm": "ยืนยัน",
+      "cancel": "ยกเลิก"
+    }
+  },
   "header": {
     "dropdown": {
       "role_title": "สิทธิ์การใช้งาน",
@@ -168,7 +194,69 @@
         "empty": {
           "title": "ไม่พบรายการ",
           "subtitle": "ลองแก้ไขเงื่อนไขการค้นหาหรือเพิ่มข้อมูลใหม่"
+        },
+        "no_permission": "** ไม่มีสิทธิ์ดำเนินการ **",
+        "tooltip": {
+          "edit_role": "แก้ไขสิทธิ์ผู้ใช้งาน",
+          "no_permission_role": "ไม่มีสิทธิ์แก้ไขสิทธิ์ผู้ใช้งาน",
+          "edit_status": "แก้ไขสถานะผู้ใช้งาน",
+          "no_permission_status": "ไม่มีสิทธิ์แก้ไขสถานะผู้ใช้งาน",
+          "reset_password": "รีเซ็ตรหัสผ่าน",
+          "reset_attempts": "รีเซ็ต Attempts",
+          "edit_user": "แก้ไขข้อมูลผู้ใช้งาน",
+          "delete_user": "ลบข้อมูลผู้ใช้งาน"
         }
+      },
+      "toast": {
+        "no_permission_reset_password": "คุณไม่มีสิทธิ์รีเซ็ตรหัสผ่าน",
+        "no_permission_reset_attempts": "คุณไม่มีสิทธิ์รีเซ็ตราการAttempts",
+        "no_permission_edit_status": "คุณไม่มีสิทธิ์แก้ไขสถานะผู้ใช้งาน",
+        "no_permission_edit_role": "คุณไม่มีสิทธิ์แก้ไขสิทธิ์ผู้ใช้งาน",
+        "no_permission_edit_user": "คุณไม่มีสิทธิ์แก้ไขข้อมูลผู้ใช้งาน",
+        "no_permission_delete_user": "คุณไม่มีสิทธิ์ลบผู้ใช้งาน",
+        "reset_password_success": "รีเซ็ตรหัสผ่านเรียบร้อยแล้ว",
+        "new_password_text": "รหัสผ่านใหม่ของ [fullname] คือ: [password]",
+        "reset_password_failed": "ไม่สามารถรีเซ็ตรหัสผ่านได้!",
+        "reset_attempts_success": "รีเซ็ต Sign in attempts เรียบร้อยแล้ว",
+        "reset_attempts_failed": "ไม่สามารถรีเซ็ตรีเซ็ต Sign in attempts ได้!",
+        "edit_status_success": "เปลี่ยนสถานะผู้ใช้งานเรียบร้อยแล้ว",
+        "edit_status_failed": "ไม่สามารถเปลี่ยนสถานะผู้ใช้งานได้!",
+        "edit_role_success": "เปลี่ยนสิทธิ์ผู้ใช้งานเรียบร้อยแล้ว",
+        "edit_role_failed": "ไม่สามารถเปลี่ยนสิทธิ์ผู้ใช้งานได้!",
+        "delete_user_failed": "ไม่สามารถลบผู้ใช้งานได้!"
+      },
+      "dialog": {
+        "reset_password": {
+          "title": "รีเซ็ตรหัสผ่าน",
+          "text": "คุณต้องการรีเซ็ตรหัสผ่านของ [fullname] หรือไม่?",
+          "confirm": "ยืนยัน!",
+          "cancel": "ยกเลิก"
+        },
+        "reset_attempts": {
+          "title": "รีเซ็ตการเข้าสู่ระบบ",
+          "text": "คุณต้องการรีเซ็ต Sign in attempts ของ [fullname] หรือไม่?"
+        },
+        "edit_status": {
+          "title": "เลือกสถานะผู้ใช้งาน",
+          "text": "เปลี่ยนสถานะผู้ใช้งาน [fullname] จาก [status]",
+          "active": "Active (อนุญาต)",
+          "pending": "Pending (รอดำเนินการ)",
+          "blocked": "Blocked (บล็อคการใช้งาน)",
+          "cancel": "ยกเลิก"
+        },
+        "edit_role": {
+          "title": "เลือกสิทธิ์ผู้ใช้งาน",
+          "text": "เปลี่ยนสิทธิ์ผู้ใช้งาน [fullname] จาก [role]",
+          "cancel": "ยกเลิก"
+        },
+        "delete_user": {
+          "title": "ยืนยันการลบผู้ใช้งาน",
+          "text": "บัญชี: [username] ([fullname])"
+        }
+      },
+      "validation": {
+        "alpha_space": "อนุญาตเฉพาะตัวอักษรไทยและอังกฤษ ห้ามเว้นวรรค",
+        "username_allowed": "อนุญาตเฉพาะ a-z A-Z 0-9 และ . _ -"
       }
     },
     "users_profile": {
@@ -573,7 +661,7 @@
           "bar_low": "LOW",
           "bar_normal": "NORMAL",
           "bar_high": "HIGH",
-          "trigger_delay_label": "Trigger Delay / Sustained Time (ระยะเวลาต้องเกินเกณฑ์ต่อเนื่อง)",
+          "trigger_delay_label": "Trigger Delay / Sustained Time ( ระยะเวลาที่เกินเกณฑ์ก่อนแจ้งเตือน )",
           "delay_instant": "Instant (ทันทีที่เกินเกณฑ์ 0s)",
           "delay_30s": "30 วินาที (30s)",
           "delay_1m": "1 นาที (1m)",

@@ -2,6 +2,7 @@ import { api, API_URL } from '@/api';
 import { User } from '@_types/user';
 import useSwalAlert from '@/hooks/useSwalAlert';
 import { SwalResult } from '@_types/utils';
+import { useTranslation } from 'react-i18next';
 
 export const UseRow = (
   reload: () => void,
@@ -15,23 +16,24 @@ export const UseRow = (
   },
   rolesList: string[] = []
 ) => {
+  const { t } = useTranslation();
   const SwalAlert = useSwalAlert();
 
   // รีเซ็ตรหัสผ่าน
   const handleResetPassword = (row: User) => {
     if (!perms.canResetPassword) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์รีเซ็ตรหัสผ่าน' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_reset_password') });
       return;
     }
     SwalAlert.confirm({
-      title: 'รีเซ็ตรหัสผ่าน',
-      text: `คุณต้องการรีเซ็ตรหัสผ่านของ ${row.fullname} หรือไม่?`,
+      title: t('page.users_management.dialog.reset_password.title'),
+      text: t('page.users_management.dialog.reset_password.text').replace('[fullname]', row.fullname || ''),
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'ยืนยัน!',
-      cancelButtonText: 'ยกเลิก',
+      confirmButtonText: t('page.users_management.dialog.reset_password.confirm'),
+      cancelButtonText: t('page.users_management.dialog.reset_password.cancel'),
     })
       .then(async (result) => {
         if (result.isConfirmed) {
@@ -47,21 +49,23 @@ export const UseRow = (
           SwalAlert.success({
             timer: undefined,
             showConfirmButton: true,
-            title: 'รีเซ็ตรหัสผ่านเรียบร้อยแล้ว',
-            text: `รหัสผ่านใหม่ของ ${row.fullname} คือ: ${randomPassword}`,
+            title: t('page.users_management.toast.reset_password_success'),
+            text: t('page.users_management.toast.new_password_text')
+              .replace('[fullname]', row.fullname || '')
+              .replace('[password]', randomPassword),
           });
         }
       })
       .catch((error) => {
         console.error('Error in Swal:', error);
-        SwalAlert.error({ text: 'ไม่สามารถรีเซ็ตรหัสผ่านได้!' });
+        SwalAlert.error({ text: t('page.users_management.toast.reset_password_failed') });
       });
   };
 
   // รีเซ็ตจำนวนการป้อนรหัสผ่านผิด
   const handleResetAttempts = (row: User) => {
     if (!perms.canResetAttempts) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์รีเซ็ตราการAttempts' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_reset_attempts') });
       return;
     }
     if (!row.sign_in_attempts) {
@@ -69,8 +73,8 @@ export const UseRow = (
     }
 
     SwalAlert.confirm({
-      title: 'รีเซ็ตการเข้าสู่ระบบ',
-      text: `คุณต้องการรีเซ็ต Sign in attempts ของ ${row.fullname} หรือไม่?`,
+      title: t('page.users_management.dialog.reset_attempts.title'),
+      text: t('page.users_management.dialog.reset_attempts.text').replace('[fullname]', row.fullname || ''),
     })
       .then(async (result) => {
         if (result.isConfirmed) {
@@ -81,32 +85,34 @@ export const UseRow = (
             headers: API_URL.CONTENT_TYPE_FORMDATA,
           });
 
-          SwalAlert.Toast({ title: 'รีเซ็ต Sign in attempts เรียบร้อยแล้ว' });
+          SwalAlert.Toast({ title: t('page.users_management.toast.reset_attempts_success') });
           reload();
         }
       })
       .catch((error) => {
         console.error('Error in Swal:', error);
-        SwalAlert.error({ text: 'ไม่สามารถรีเซ็ตรีเซ็ต Sign in attempts ได้!' });
+        SwalAlert.error({ text: t('page.users_management.toast.reset_attempts_failed') });
       });
   };
 
   // แก้ไขสถานะผู้ใช้งาน
   const handleEditStatus = (row: User) => {
     if (!perms.canEditStatus) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์แก้ไขสถานะผู้ใช้งาน' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_edit_status') });
       return;
     }
     SwalAlert.custom({
-      title: 'เลือกสถานะผู้ใช้งาน',
+      title: t('page.users_management.dialog.edit_status.title'),
       icon: 'warning',
       html: `
-      <p>เปลี่ยนสถานะผู้ใช้งาน ${row.fullname} จาก ${row.status}</p>
+      <p>${t('page.users_management.dialog.edit_status.text')
+        .replace('[fullname]', row.fullname || '')
+        .replace('[status]', row.status || '')}</p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
-        <button id="btn-admin" class="swal2-confirm swal2-styled status-active">Active (อนุญาต)</button>
-        <button id="btn-editor" class="swal2-confirm swal2-styled status-pending">Pending (รอดำเนินการ)</button>
-        <button id="btn-operator" class="swal2-confirm swal2-styled status-blocked">Blocked (บล็อคการใช้งาน)</button>
-        <button id="btn-cancel" class="swal2-confirm swal2-styled" style="background-color:#f83e4b">ยกเลิก</button>
+        <button id="btn-admin" class="swal2-confirm swal2-styled status-active">${t('page.users_management.dialog.edit_status.active')}</button>
+        <button id="btn-editor" class="swal2-confirm swal2-styled status-pending">${t('page.users_management.dialog.edit_status.pending')}</button>
+        <button id="btn-operator" class="swal2-confirm swal2-styled status-blocked">${t('page.users_management.dialog.edit_status.blocked')}</button>
+        <button id="btn-cancel" class="swal2-confirm swal2-styled" style="background-color:#f83e4b">${t('page.users_management.dialog.edit_status.cancel')}</button>
       </div>
     `,
       showConfirmButton: false,
@@ -133,39 +139,38 @@ export const UseRow = (
           headers: API_URL.CONTENT_TYPE_FORMDATA,
         });
 
-        SwalAlert.Toast({ title: 'เปลี่ยนสถานะผู้ใช้งานเรียบร้อยแล้ว' });
+        SwalAlert.Toast({ title: t('page.users_management.toast.edit_status_success') });
         reload();
       })
       .catch((error) => {
         console.error('Error in Swal:', error);
-        SwalAlert.error({ text: 'ไม่สามารถเปลี่ยนสถานะผู้ใช้งานได้!' });
+        SwalAlert.error({ text: t('page.users_management.toast.edit_status_failed') });
       });
   };
 
   // แก้ไขสิทธิ์ผู้ใช้งาน (ข้อมูลปุ่มมาจาก backend)
   const handleEditRole = (row: User) => {
     if (!perms.canEditRole) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์แก้ไขสิทธิ์ผู้ใช้งาน' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_edit_role') });
       return;
     }
 
-    const rolesToShow = rolesList;
+    const rolesToShow = rolesList ? rolesList : ['super admin', 'admin', 'operator', 'viewer'];
 
-    if (!rolesToShow.length) {
-      SwalAlert.error({ text: 'ไม่พบรายการสิทธิ์ผู้ใช้งานจากระบบ' });
-      return;
-    }
-
-    const buttonsHtml = rolesToShow.map((r) => `<button id="btn-${r.replace(" ", "_")}" class="swal2-confirm swal2-styled role-${r}">${r}</button>`).join('');
+    const buttonsHtml = rolesToShow
+      .map((r) => `<button id="btn-${r.replace(' ', '_')}" class="swal2-confirm swal2-styled role-${r}">${r}</button>`)
+      .join('');
 
     SwalAlert.confirm({
-      title: 'เลือกสิทธิ์ผู้ใช้งาน',
+      title: t('page.users_management.dialog.edit_role.title'),
       icon: 'warning',
       html: `
-      <p>เปลี่ยนสิทธิ์ผู้ใช้งาน ${row.fullname} จาก ${row.role?.toUpperCase()}</p>
+      <p>${t('page.users_management.dialog.edit_role.text')
+        .replace('[fullname]', row.fullname || '')
+        .replace('[role]', (row.role || '').toUpperCase())}</p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
         ${buttonsHtml}
-        <button id="btn-cancel" class="swal2-cancel swal2-styled" style="background-color:#f83e4b">ยกเลิก</button>
+        <button id="btn-cancel" class="swal2-cancel swal2-styled" style="background-color:#f83e4b">${t('page.users_management.dialog.edit_role.cancel')}</button>
       </div>
     `,
       showConfirmButton: false,
@@ -173,7 +178,7 @@ export const UseRow = (
       didOpen: () => {
         const swal = SwalAlert.Swal.getPopup();
         rolesToShow.forEach((r) => {
-          const id = r.replace(" ", "_");
+          const id = r.replace(' ', '_');
           swal?.querySelector(`#btn-${id}`)?.addEventListener('click', () => SwalAlert.Swal.close({ value: r }));
         });
         swal?.querySelector('#btn-cancel')?.addEventListener('click', () => SwalAlert.Swal.close({ isDismissed: true }));
@@ -184,9 +189,9 @@ export const UseRow = (
 
         let selectedRole = result.value;
         if (selectedRole == row.role) return;
-        if (!selectedRole) throw new Error('ไม่พบสถานะที่เลือก');
+        if (!selectedRole) throw new Error('ไม่พบสิทธิ์ที่เลือก');
 
-        selectedRole = selectedRole.replace("_", " ");
+        selectedRole = selectedRole.replace('_', ' ');
         api.defaults.timeout = 500;
         const formData = new FormData();
         formData.append('role', selectedRole);
@@ -194,19 +199,19 @@ export const UseRow = (
           headers: API_URL.CONTENT_TYPE_FORMDATA,
         });
 
-        SwalAlert.Toast({ title: 'เปลี่ยนสิทธิ์ผู้ใช้งานเรียบร้อยแล้ว' });
+        SwalAlert.Toast({ title: t('page.users_management.toast.edit_role_success') });
         reload();
       })
       .catch((error) => {
         console.error('Error in Swal:', error);
-        SwalAlert.error({ text: 'ไม่สามารถเปลี่ยนสิทธิ์ผู้ใช้งานได้!' });
+        SwalAlert.error({ text: t('page.users_management.toast.edit_role_failed') });
       });
   };
 
   // แก้ไขข้อมูลผู้ใช้งาน
   const handleEditUserData = (row: User, setSelectedUser: (user: User | null) => void, setIsModalOpen: (isOpen: boolean) => void) => {
     if (!perms.canEditUser) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์แก้ไขข้อมูลผู้ใช้งาน' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_edit_user') });
       return;
     }
     setSelectedUser(row);
@@ -216,12 +221,18 @@ export const UseRow = (
   // ลบข้อมูลผู้ใช้งาน
   const deleteUser = (row: User) => {
     if (!perms.canDeleteUser) {
-      SwalAlert.error({ text: 'คุณไม่มีสิทธิ์ลบผู้ใช้งาน' });
+      SwalAlert.error({ text: t('page.users_management.toast.no_permission_delete_user') });
       return;
     }
     SwalAlert.confirm({
-      title: 'ยืนยันการลบผู้ใช้งาน',
-      text: `บัญชี: ${row.username} (${row.fullname})`,
+      title: t('page.users_management.dialog.delete_user.title'),
+      text: t('page.users_management.dialog.delete_user.text')
+        .replace('[username]', row.username || '')
+        .replace('[fullname]', row.fullname || ''),
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: t('page.users_management.dialog.reset_password.confirm'),
+      cancelButtonText: t('page.users_management.dialog.reset_password.cancel'),
     })
       .then(async (result: SwalResult) => {
         if (result.isDismissed) return;
@@ -233,7 +244,7 @@ export const UseRow = (
       })
       .catch((error) => {
         console.error('Error in Swal:', error);
-        SwalAlert.error({ text: 'ไม่สามารถเปลี่ยนสิทธิ์ผู้ใช้งานได้!' });
+        SwalAlert.error({ text: t('page.users_management.toast.delete_user_failed') });
       });
   };
 

@@ -68,11 +68,11 @@ export default function UpdateUserDataModal({ userId, isOpen, onClose }: UpdateU
     if (name === 'fname' || name === 'lname') {
       regex = /^[\u0E00-\u0E7Fa-zA-Z]*$/;
 
-      hintMessage = 'อนุญาตเฉพาะตัวอักษรไทยและอังกฤษ ห้ามเว้นวรรค';
+      hintMessage = t('page.users_management.validation.alpha_space');
     } else if (name === 'username') {
       regex = /^[a-zA-Z0-9._-]*$/;
 
-      hintMessage = 'อนุญาตเฉพาะ a-z A-Z 0-9 และ . _ -';
+      hintMessage = t('page.users_management.validation.username_allowed');
     } else {
       regex = /^[A-Za-z0-9ก-๙\s]*$/;
     }
@@ -283,7 +283,7 @@ export default function UpdateUserDataModal({ userId, isOpen, onClose }: UpdateU
               }}
               startIcon={<MdiSaveAllIcon className="size-5" />}
             >
-              {isSending ? t('page.users_profile.profile_card.button.submit') : t('page.users_profile.profile_card.button.submit')}
+              {isSending ? t('page.users_profile.profile_card.button.wait') : t('page.users_profile.profile_card.button.submit')}
 
               {isSending && <EosThreeDotsLoadingIcon className="size-8" />}
             </Button>

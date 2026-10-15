@@ -109,7 +109,8 @@ export default function UsersManagement() {
         const r = res.data?.roles || [];
         if (mounted) setRolesList(r);
       } catch (err) {
-        if (mounted) setRolesList([]);
+        // fallback to defaults if backend not available
+        if (mounted) setRolesList(['super admin', 'admin', 'operator', 'viewer']);
       }
     };
 
@@ -210,7 +211,7 @@ export default function UsersManagement() {
                   key={header.label}
                   isHeader
                   onClick={() => handleSort(header.key)}
-                  className={`px-4 py-3 bg-gray-500/10 dark:bg-gray-800 font-medium text-gray-500 text-start text-theme-lg dark:text-white/[0.8] ${
+                  className={`px-4 py-3 bg-gray-200/30 dark:bg-gray-800 font-medium text-gray-500 text-start text-theme-lg dark:text-white/[0.8] ${
                     header.key ? 'cursor-pointer select-none' : ''
                   }`}
                 >
@@ -255,7 +256,7 @@ export default function UsersManagement() {
                 <TableCell className="px-4 pl-0 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   {canEditRole ? (
                     <span className="flex justify-center cursor-pointer hover:scale-110 duration-300" onClick={() => handleEditRole(row)}>
-                      <Tooltip text="แก้ไขสิทธิ์ผู้ใช้งาน">
+                      <Tooltip text={t('page.users_management.table.tooltip.edit_role')}>
                         <Badge size="sm" color={getBadgeColorByRole(row.role || '')}>
                           {row.role}
                         </Badge>
@@ -263,7 +264,7 @@ export default function UsersManagement() {
                     </span>
                   ) : (
                     <span className="flex justify-center">
-                      <Tooltip text="ไม่มีสิทธิ์แก้ไขสิทธิ์ผู้ใช้งาน">
+                      <Tooltip text={t('page.users_management.table.tooltip.no_permission_role')}>
                         <Badge size="sm" color={getBadgeColorByRole(row.role || '')}>
                           {row.role}
                         </Badge>
@@ -274,7 +275,7 @@ export default function UsersManagement() {
                 <TableCell className="px-4 pl-0 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   {canEditStatus ? (
                     <span className="flex justify-center cursor-pointer hover:scale-110 duration-300" onClick={() => handleEditStatus(row)}>
-                      <Tooltip text="แก้ไขสถานะผู้ใช้งาน">
+                      <Tooltip text={t('page.users_management.table.tooltip.edit_status')}>
                         <Badge size="sm" color={getBadgeColorByStatus(row.status || '')}>
                           {row.status}
                         </Badge>
@@ -282,7 +283,7 @@ export default function UsersManagement() {
                     </span>
                   ) : (
                     <span className="flex justify-center">
-                      <Tooltip text="ไม่มีสิทธิ์แก้ไขสถานะผู้ใช้งาน">
+                      <Tooltip text={t('page.users_management.table.tooltip.no_permission_status')}>
                         <Badge size="sm" color={getBadgeColorByStatus(row.status || '')}>
                           {row.status}
                         </Badge>
@@ -297,7 +298,7 @@ export default function UsersManagement() {
                     {canResetPassword || canResetAttempts || canEditUser || canDeleteUser ? (
                       <span className="flex justify-center items-center gap-2">
                         {canResetPassword && (
-                          <Tooltip text="รีเซ็ตรหัสผ่าน">
+                          <Tooltip text={t('page.users_management.table.tooltip.reset_password')}>
                             <Button
                               size="sm"
                               variant={{ light: 'info-soft', dark: 'info-soft-outline' }}
@@ -310,7 +311,7 @@ export default function UsersManagement() {
                         )}
 
                         {canResetAttempts && (
-                          <Tooltip text="รีเซ็ต Attempts">
+                          <Tooltip text={t('page.users_management.table.tooltip.reset_attempts')}>
                             <Button
                               size="sm"
                               variant={{ light: 'success-soft', dark: 'success-soft-outline' }}
@@ -323,7 +324,7 @@ export default function UsersManagement() {
                         )}
 
                         {canEditUser && (
-                          <Tooltip text="แก้ไขข้อมูลผู้ใช้งาน">
+                          <Tooltip text={t('page.users_management.table.tooltip.edit_user')}>
                             <Button
                               size="sm"
                               variant={{ light: 'warning-soft', dark: 'warning-soft-outline' }}
@@ -336,7 +337,7 @@ export default function UsersManagement() {
                         )}
 
                         {canDeleteUser && (
-                          <Tooltip text="ลบข้อมูลผู้ใช้งาน">
+                          <Tooltip text={t('page.users_management.table.tooltip.delete_user')}>
                             <Button
                               size="sm"
                               variant={{ light: 'error-soft', dark: 'error-soft-outline' }}
@@ -350,7 +351,7 @@ export default function UsersManagement() {
                       </span>
                     ) : (
                       <div className="flex justify-center items-center">
-                        <div className="bg-gray-200 dark:bg-gray-600 cursor-not-allowed px-3 py-2 rounded-xl">** ไม่มีสิทธิ์ดำเนินการ **</div>
+                        <div className="bg-gray-200 dark:bg-gray-600 cursor-not-allowed px-3 py-2 rounded-xl">{t('page.users_management.table.no_permission')}</div>
                       </div>
                     )}
                   </div>
