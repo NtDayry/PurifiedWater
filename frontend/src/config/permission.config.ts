@@ -14,6 +14,7 @@ export const PermissionConfig = {
     device: [PM.Pages.Device],
     system_monitor: [PM.Pages.SystemMonitor],
     alarm_reports: [PM.Pages.AlarmReports],
+    backup_restore: [PM.Pages.BackupRestore],
   },
 
   // === 2. ส่วนควบคุม Elements / ข้อมูล / ปุ่มกด ภายในแต่ละโมดูลหน้าจอ ===

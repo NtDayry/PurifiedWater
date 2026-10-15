@@ -37,6 +37,7 @@ const Input: FC<InputProps> = ({
   passwordContext,
   value,
   onChange,
+  onBlur,
   className = '',
   min,
   max,
@@ -87,6 +88,7 @@ const Input: FC<InputProps> = ({
           autoComplete={resolvedAutoComplete}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           min={min}
           max={max}
           step={step}

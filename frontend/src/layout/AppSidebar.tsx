@@ -10,7 +10,7 @@ import { checkPermission } from '@/hooks/usePermission';
 
 // Assume these icons are imported from an icon library
 import { ChevronDownIcon, IxDashboardIcon, UiSetting, GridIcon, HorizontalDotsIcon, PlugInIcon, UserLineIcon } from '@/icons';
-import { FileClock, Activity, Bell } from 'lucide-react';
+import { FileClock, Activity, Bell, HardDriveDownload } from 'lucide-react';
 import { useSidebar } from '@/context/SidebarContext';
 
 const PROJECT_NAME = import.meta.env.VITE_PROJECT_NAME;
@@ -89,6 +89,12 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
       name: t('navbar.system_monitor'),
       path: URL.SYSTEM_MONITOR,
       permission: PermissionConfig.Routes.system_monitor[0],
+    },
+    {
+      icon: <HardDriveDownload className="size-5" />,
+      name: t('navbar.backup_restore'),
+      path: URL.BACKUP_RESTORE,
+      permission: PermissionConfig.Routes.backup_restore[0],
     },
   ];
 

@@ -11,6 +11,7 @@ export const PermissionMap = {
     Device: 'page:device',
     SystemMonitor: 'page:system_monitor',
     AlarmReports: 'page:alarm_reports',
+    BackupRestore: 'page:settings',
   },
 
   // === 2. ระดับข้อมูล/การทำงาน (API Protection & UI Element Control) ===

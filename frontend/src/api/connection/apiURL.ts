@@ -34,6 +34,21 @@ export const API_URL = {
 
   SUPPORT_TEAM: '/support-team',
 
+  // Backup & Restore
+  BACKUP_LIST: '/backup/list',
+  BACKUP_STATS: '/backup/stats',
+  BACKUP_CONFIG: '/backup/config',
+  BACKUP_CREATE: '/backup/create',
+  BACKUP_RESTORE: '/backup/restore',
+  BACKUP_CURRENT_JOB: '/backup/current-job',
+  BACKUP_CANCEL: '/backup/cancel',
+  BACKUP_UPLOAD: '/backup/upload',
+  BACKUP_TEST_CONNECTION: '/backup/test-connection',
+  BACKUP: '/backup',
+  BACKUP_INFO: '/backup/info',
+  BACKUP_DOWNLOAD: '/backup/download',
+  BACKUP_SYNC_REMOTE: '/backup/sync-remote',
+
   WS: `${import.meta.env.VITE_WS_URL || (window.location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + window.location.host}/ws/sensor-data`,
 };
 

@@ -17,4 +17,5 @@ export const URL = {
   DETAILS: '/dashboard/lots',
   DETAILS_ROUTE: '/dashboard/lots/:lot',
   ALARM_REPORTS: '/alarm-reports',
+  BACKUP_RESTORE: '/backup-restore',
 };

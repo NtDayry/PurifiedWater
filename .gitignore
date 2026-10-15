@@ -7,7 +7,7 @@ __pycache__/
 .env.development
 .env.production
 assets/models/
-backup/
+/backup/
 uploads/
 storage/
 .pnpm-store/

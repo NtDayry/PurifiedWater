@@ -12,6 +12,7 @@ from app.api.routes import (
     alerts,
     ingest,
     notification_settings,
+    backup,
 )
 # ws_sensor_router is registered at root level in main.py (not under /api prefix)
 
@@ -57,3 +58,6 @@ api_router.include_router(notification_settings.router)
 
 # Sensor Data Ingest (1-min aggregated data from Modbus Reader)
 api_router.include_router(ingest.router)
+
+# Backup & Restore
+api_router.include_router(backup.router)

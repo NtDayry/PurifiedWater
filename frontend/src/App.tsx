@@ -16,6 +16,7 @@ import Support from './pages/Support';
 import AppLayout from './layout/AppLayout';
 import Reports from './pages/Reports/Reports';
 import AlarmReportsPage from './pages/AlarmReports/AlarmReportsPage';
+import BackupRestorePage from './pages/BackupRestore/BackupRestorePage';
 
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { URL } from './api';
@@ -135,6 +136,11 @@ export default function App() {
             <Route path={URL.SYSTEM_MONITOR} element={
               <PermissionGuard permissionKeys={PermissionConfig.Routes.system_monitor}>
                 <SystemMonitorPage />
+              </PermissionGuard>
+            } />
+            <Route path={URL.BACKUP_RESTORE} element={
+              <PermissionGuard permissionKeys={PermissionConfig.Routes.backup_restore}>
+                <BackupRestorePage />
               </PermissionGuard>
             } />
             <Route

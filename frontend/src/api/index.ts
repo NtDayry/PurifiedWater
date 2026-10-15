@@ -16,3 +16,4 @@ export * from './sensors/sensorRegistry';
 export * from './alerts/alertRules';
 export * from './alerts/alertEvents';
 export * from './notifications/notificationSettings';
+export * from './backup/backupApi';
