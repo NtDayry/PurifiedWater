@@ -1602,7 +1602,7 @@ export default function BackupSettingsPanel() {
       {/* ========================================================================= */}
       {/* 6. Modal: Create Backup                                                   */}
       {/* ========================================================================= */}
-      <Modal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
+      <Modal isOpen={isCreateModalOpen} size='xl' onClose={() => setIsCreateModalOpen(false)}>
         <div className="p-6 space-y-5">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400">
