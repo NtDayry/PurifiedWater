@@ -1,0 +1,116 @@
+/* From Uiverse.io by tmpMonster */ 
+.matrix-loader-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.matrix-loader {
+  perspective: 1000px;
+}
+
+.matrix-loader .cube {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: cubeSpin 12s infinite linear;
+}
+
+.matrix-loader .layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 3px;
+  transform-style: preserve-3d;
+  border: 1px solid #444;
+  background: rgba(255, 255, 255, 0.015);
+  box-shadow: inset 0 0 6px #00f8ff22;
+}
+
+.matrix-loader .l1 {
+  transform: translateZ(-20px);
+}
+.matrix-loader .l2 {
+  transform: translateZ(0);
+}
+.matrix-loader .l3 {
+  transform: translateZ(20px);
+}
+
+.matrix-loader .block {
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  transform: translateZ(-80px) scale(0.3);
+  opacity: 0;
+  box-shadow: 0 0 6px #ffffff11;
+  animation: riseIn 3s infinite ease-in-out;
+}
+
+.matrix-loader .l1 .block {
+  background: #ff595e;
+}
+.matrix-loader .l2 .block {
+  background: #ffca3a;
+}
+.matrix-loader .l3 .block {
+  background: #8ac926;
+}
+
+.matrix-loader .layer .block:nth-child(1) {
+  animation-delay: 0s;
+}
+.matrix-loader .layer .block:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.matrix-loader .layer .block:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.matrix-loader .layer .block:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.matrix-loader .layer .block:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.matrix-loader .layer .block:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.matrix-loader .layer .block:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.matrix-loader .layer .block:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.matrix-loader .layer .block:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+@keyframes riseIn {
+  0% {
+    transform: translateZ(-80px) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translateZ(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateZ(20px) scale(0.5);
+    opacity: 0.4;
+  }
+}
+
+@keyframes cubeSpin {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}

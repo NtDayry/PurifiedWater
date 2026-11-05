@@ -1,0 +1,175 @@
+/* Pump system diagram styles & animations */
+.fl {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fl.on {
+  opacity: 1;
+  stroke-dasharray: 12 8;
+  animation: dash 0.6s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.pl1 path,
+.pl2 path,
+.pl3 path {
+  fill: none;
+  stroke-linejoin: round;
+}
+
+.pl1 path {
+  stroke: #1e293b;
+  stroke-width: 18;
+}
+
+.pl2 path {
+  stroke: #64748b;
+  stroke-width: 14;
+}
+
+.pl3 path {
+  stroke: #0b1220;
+  stroke-width: 9;
+}
+
+.hs {
+  stroke: #64748b;
+}
+
+.blades {
+  fill: #94a3b8;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.spin {
+  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.75));
+}
+
+.spin .hs {
+  stroke: #34d399;
+}
+
+.spin .blades {
+  fill: #34d399;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lvl {
+  transition: transform 0.8s ease;
+}
+
+.wv1 {
+  animation: wv1 3.4s linear infinite;
+}
+
+.wv2 {
+  animation: wv2 5s linear infinite;
+}
+
+@keyframes wv1 {
+  to {
+    transform: translateX(-150px);
+  }
+}
+
+@keyframes wv2 {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.bub {
+  fill: #e0f2fe;
+  opacity: 0;
+  animation: rise 3.6s ease-in infinite;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-55px);
+    opacity: 0;
+  }
+}
+
+.rip {
+  opacity: 0;
+}
+
+.rip.on {
+  opacity: 1;
+}
+
+.rip ellipse {
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: none;
+  stroke: #bae6fd;
+  stroke-width: 2;
+}
+
+.rip.on ellipse {
+  animation: ripple 1.4s ease-out infinite;
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.vopen {
+  filter: drop-shadow(0 0 5px rgba(52, 211, 153, 0.8));
+}
+
+/* Pump overload warning animation */
+.pump-overload {
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.95));
+  animation: overload-ring-pulse 1s ease-in-out infinite alternate;
+}
+
+.pump-overload .hs {
+  stroke: #ef4444 !important;
+  stroke-width: 4.5;
+}
+
+.pump-overload .blades {
+  fill: #f87171 !important;
+}
+
+@keyframes overload-ring-pulse {
+  from {
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
+  }
+  to {
+    filter: drop-shadow(0 0 14px rgba(239, 68, 68, 1));
+  }
+}
+

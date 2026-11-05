@@ -1,0 +1,87 @@
+@theme {
+  /* =============== Animations =============== */
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+
+  --animate-fadeIn: fadeIn 0.5s ease-in forwards;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  --animate-slideDown: slideDown 0.3s ease-in forwards;
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --animate-slideUp: slideUp 5s ease-in forwards;
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+  }
+
+  --animate-marquee: marquee 5s linear infinite;
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-200%);
+    }
+  }
+
+  --animate-support-team-marquee-vertical: support-team-marquee-vertical 18s linear infinite;
+  @keyframes support-team-marquee-vertical {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  --animate-rotate: rotate 0.2s linear forwards;
+  @keyframes rotate {
+    0% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  --animate-flipY: flipY 0.2s ease-in-out forwards;
+  @keyframes flipY {
+    0% {
+      transform: perspective(400px) rotateY(180deg);
+    }
+    100% {
+      transform: perspective(400px) rotateY(0deg);
+    }
+  }
+}
