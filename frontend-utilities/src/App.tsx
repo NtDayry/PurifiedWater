@@ -19,6 +19,7 @@ import AlarmReportsPage from './pages/AlarmReports/AlarmReportsPage';
 import BackupRestorePage from './pages/BackupRestore/BackupRestorePage';
 import WaterSupplyDashboard from './pages/WaterSupply/WaterSupplyDashboard';
 import WaterSupplyReports from './pages/WaterSupply/WaterSupplyReports';
+import FactoryLayoutPage from './pages/FactoryLayout/FactoryLayoutPage';
 
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { URL } from './api';
@@ -101,12 +102,12 @@ export default function App() {
               path={URL.HOME}
               element={
                 <PermissionGuard permissionKeys={PermissionConfig.Routes.dashboard}>
-                  <Home />
+                  <FactoryLayoutPage />
                 </PermissionGuard>
               }
             />
             <Route
-              path={URL.HMI}
+              path={URL.PURIFIED_WATER_DASHBOARD}
               element={
                 <PermissionGuard permissionKeys={PermissionConfig.Routes.dashboard}>
                   <Home />
@@ -114,26 +115,36 @@ export default function App() {
               }
             />
             <Route
-              path="/reports"
+              path={URL.PURIFIED_WATER_REPORTS}
               element={
                 <PermissionGuard permissionKeys={PermissionConfig.Routes.reports}>
                   <Reports />
                 </PermissionGuard>
               }
             />
-            <Route path={URL.ALARM_REPORTS} element={
+            <Route path={URL.PURIFIED_WATER_ALARMS} element={
               <PermissionGuard permissionKeys={PermissionConfig.Routes.alarm_reports}>
                 <AlarmReportsPage />
               </PermissionGuard>
             } />
             <Route
-              path="/settings-devices"
+              path={URL.PURIFIED_WATER_SETTINGS}
               element={
                 <PermissionGuard permissionKeys={PermissionConfig.Routes.device}>
                   <SettingsDevicesPage />
                 </PermissionGuard>
               }
             />
+
+            {/* Purified Water: /purified-water -> dashboard และ redirect ลิงก์เก่า */}
+            <Route path={URL.PURIFIED_WATER} element={<Navigate to={URL.PURIFIED_WATER_DASHBOARD} replace />} />
+            <Route path="/hmi" element={<Navigate to={URL.PURIFIED_WATER_DASHBOARD} replace />} />
+            <Route path="/reports" element={<Navigate to={URL.PURIFIED_WATER_REPORTS} replace />} />
+            <Route path="/alarm-reports" element={<Navigate to={URL.PURIFIED_WATER_ALARMS} replace />} />
+            <Route path="/settings-devices" element={<Navigate to={URL.PURIFIED_WATER_SETTINGS} replace />} />
+
+            {/* ลิงก์เก่าของแผนผังโรงงาน -> หน้า Home */}
+            <Route path={URL.FACTORY_LAYOUT} element={<Navigate to={URL.HOME} replace />} />
 
             {/* Water Supply System */}
             <Route path={URL.WATER_SUPPLY_DASHBOARD} element={<WaterSupplyDashboard />} />

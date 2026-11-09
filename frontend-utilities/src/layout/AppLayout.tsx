@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { SidebarProvider, useSidebar } from '../context/SidebarContext';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import AppHeader from './AppHeader';
 import Backdrop from './Backdrop';
 import AppSidebar from './AppSidebar';
@@ -19,12 +19,11 @@ const LayoutContent: React.FC = () => {
   const { loading } = useLoading();
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
   const location = useLocation();
-  const navigate = useNavigate();
   const [isHmiMode, setIsHmiMode] = useState(false);
   const [isHmiMenuOpen, setIsHmiMenuOpen] = useState(false);
   const previousPathRef = useRef(location.pathname);
-  const isHmiRoute = location.pathname === URL.HMI;
-  const isHmiDashboard = location.pathname === URL.HOME || isHmiRoute;
+  // หน้าที่ออกแบบให้พอดีจอ (ไม่ scroll) ในโหมด HMI
+  const isHmiFitPage = location.pathname === URL.HOME || location.pathname === URL.PURIFIED_WATER_DASHBOARD;
 
   useEffect(() => {
     const previousPath = previousPathRef.current;
@@ -54,19 +53,12 @@ const LayoutContent: React.FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (isHmiRoute) {
-      setIsHmiMode(true);
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
-    } else {
-      setIsHmiMode(false);
-    }
+    // เปลี่ยนหน้าไม่เปลี่ยนโหมด: เข้า/ออก HMI ได้จากปุ่ม HMI / Exit HMI เท่านั้น
     setIsHmiMenuOpen(false);
-  }, [location.pathname, isHmiRoute]);
+  }, [location.pathname]);
 
   useEffect(() => {
-    if (!isHmiDashboard || !isHmiMode) return;
+    if (!isHmiMode) return;
 
     const handleFirstUserClick = () => {
       if (!document.fullscreenElement) {
@@ -78,16 +70,20 @@ const LayoutContent: React.FC = () => {
     return () => {
       window.removeEventListener('click', handleFirstUserClick);
     };
-  }, [isHmiDashboard, isHmiMode]);
+  }, [isHmiMode]);
 
-  const handleExitHmi = () => {
-    setIsHmiMode(false);
-    if (isHmiRoute) {
-      navigate(URL.HOME);
+  const handleEnterHmi = () => {
+    setIsHmiMode(true);
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
     }
   };
 
-  if (isHmiDashboard && isHmiMode) {
+  const handleExitHmi = () => {
+    setIsHmiMode(false);
+  };
+
+  if (isHmiMode) {
     return (
       <div className="relative flex h-screen min-h-screen flex-col overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-white">
         {isHmiMenuOpen && (
@@ -125,7 +121,7 @@ const LayoutContent: React.FC = () => {
           </div>
         )}
 
-        <main className="min-h-0 w-screen flex-1 overflow-hidden p-2 md:p-3">
+        <main className={`min-h-0 w-screen flex-1 p-2 md:p-3 ${isHmiFitPage ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden pt-16'}`}>
           <Outlet context={{ isHmiMode }} />
         </main>
         <footer className="shrink-0 px-3 pb-2 text-center text-xs font-medium text-gray-500 dark:text-green-500">
@@ -146,7 +142,7 @@ const LayoutContent: React.FC = () => {
           isExpanded || isHovered ? 'lg:ml-[320px]' : 'lg:ml-[90px]'
         } ${isMobileOpen ? 'ml-0' : ''}`}
       >
-        <AppHeader showHmiButton={isHmiDashboard} onEnterHmi={() => setIsHmiMode(true)} />
+        <AppHeader showHmiButton onEnterHmi={handleEnterHmi} />
         <div className="min-h-[calc(100vh-5rem)] flex flex-col p-4 pb-0 mx-auto max-w-(--breakpoint-2xl) md:p-6 md:pb-0">
           <div className="flex-grow">
             {loading && (

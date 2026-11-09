@@ -42,7 +42,9 @@ type AppSidebarProps = {
 
 const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNavigate }) => {
   const { t } = useTranslation();
-  const { isExpanded, isMobileOpen, toggleMobileSidebar } = useSidebar();
+  const { isExpanded: sidebarExpanded, isMobileOpen, toggleMobileSidebar } = useSidebar();
+  // ในโหมด HMI (floating) ให้เมนูกางเต็มเสมอ เพื่อให้เข้าถึง submenu ได้ทุกหน้า
+  const isExpanded = presentation === 'floating' || sidebarExpanded;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -58,37 +60,38 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
   // 1. ระบบ Utilities หลัก (แต่ละระบบแยกเป็น Submenu)
   const utilitiesItems: NavItem[] = [
     {
+      id: 'factory-layout',
+      icon: <Box className="size-5" />,
+      name: t('navbar.factory_layout'),
+      path: URL.HOME,
+      permission: PermissionConfig.Routes.dashboard[0],
+    },
+    {
       id: 'purified-water',
       name: t('navbar.purified_water'),
       icon: <Droplets className="size-5" />,
       subItems: [
         {
           name: t('navbar.pw_dashboard'),
-          path: URL.HOME,
+          path: URL.PURIFIED_WATER_DASHBOARD,
           icon: <GridIcon />,
           permission: PermissionConfig.Routes.dashboard[0],
         },
         {
-          name: t('navbar.factory_layout'),
-          path: URL.FACTORY_LAYOUT,
-          icon: <Box className="size-4" />,
-          permission: PermissionConfig.Routes.dashboard[0],
-        },
-        {
           name: t('navbar.reports'),
-          path: '/reports',
+          path: URL.PURIFIED_WATER_REPORTS,
           icon: <IxDashboardIcon />,
           permission: PermissionConfig.Routes.reports[0],
         },
         {
           name: t('navbar.alarm_reports'),
-          path: URL.ALARM_REPORTS,
+          path: URL.PURIFIED_WATER_ALARMS,
           icon: <Bell className="size-4" />,
           permission: PermissionConfig.Routes.alarm_reports[0],
         },
         {
           name: t('navbar.settings_devices'),
-          path: '/settings-devices',
+          path: URL.PURIFIED_WATER_SETTINGS,
           icon: <UiSetting />,
           permission: PermissionConfig.Routes.device[0],
         },
@@ -189,7 +192,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
     },
   ];
 
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>('purified-water');
+  // เริ่มต้นไม่เปิดเมนูย่อย: หน้าแรก (/) คือแผนผังโรงงาน 3 มิติ — เปิดเมนูย่อยเฉพาะเมื่ออยู่ในหน้าของกลุ่มนั้น (useEffect ด้านล่าง)
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
 
@@ -211,7 +215,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
 
     if (matchedId) {
       setOpenSubmenu(matchedId);
-    } else if (location.pathname === URL.HOME || location.pathname.startsWith('/dashboard') || location.pathname === '/reports' || location.pathname === URL.ALARM_REPORTS || location.pathname === '/settings-devices') {
+    } else if (location.pathname === URL.HOME) {
+      setOpenSubmenu(null); // กลับมาหน้าแรก (แผนผังโรงงาน 3 มิติ) → หุบเมนูย่อย ไม่ให้กลุ่มอื่นดู active
+    } else if (location.pathname.startsWith(URL.PURIFIED_WATER) || location.pathname.startsWith('/dashboard')) {
       setOpenSubmenu('purified-water');
     }
   }, [location, isActive]);
@@ -260,12 +266,12 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
                   type="button"
                   onClick={() => handleSubmenuClick(nav, visibleSubItems)}
                   className={`menu-item group justify-center ${
-                    isSubmenuOpen || hasActiveChild ? 'menu-item-active' : 'menu-item-inactive'
-                  } cursor-pointer ${!isExpanded ? 'lg:justify-center' : 'lg:justify-start'}`}
+                    hasActiveChild ? 'menu-item-active' : 'menu-item-inactive'
+                  } cursor-pointer ps-5 ${!isExpanded ? 'lg:justify-center' : 'lg:justify-start'}`}
                 >
                   <span
                     className={`menu-item-icon-size ${
-                      isSubmenuOpen || hasActiveChild ? 'menu-item-icon-active' : 'menu-item-icon-inactive'
+                      hasActiveChild ? 'menu-item-icon-active' : 'menu-item-icon-inactive'
                     }`}
                   >
                     {nav.icon}
@@ -335,7 +341,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ presentation = 'default', onNav
                   to={nav.path}
                   replace={nav.replace}
                   onClick={handleNavigate}
-                  className={`menu-item group ps-6 ${!isExpanded ? 'lg:justify-center' : 'lg:justify-start'} ${
+                  className={`menu-item group ps-5 ${!isExpanded ? 'lg:justify-center' : 'lg:justify-start'} ${
                     isActive(nav.path) ? 'menu-item-active' : 'menu-item-inactive'
                   }`}
                 >
